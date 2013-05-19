@@ -7,14 +7,19 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template.loader import render_to_string
-from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
+from django.views.generic import (
+    ArchiveIndexView,
+    YearArchiveView,
+    MonthArchiveView
+)
 from tinyblog.forms import EmailSubscriptionForm, EmailSubscriber
 from tinyblog.models import Post
 from tinyblog.utils import get_from_email
 
 
 def post(request, year, month, slug):
-    post = get_object_or_404(Post, created__year=year, created__month=month, slug=slug)
+    post = get_object_or_404(Post, created__year=year, created__month=month,
+                             slug=slug)
 
     if post.created > datetime.now():
         if not request.user.is_staff:
@@ -70,12 +75,18 @@ def subscribe(request):
             site = current_site.name
 
             subject = 'Thanks for subscribing to {0}'.format(site)
-            text_content = render_to_string('tinyblog/emails/confirm_subscription.txt',
+
+            text_template = 'tinyblog/emails/confirm_subscription.txt'
+            text_content = render_to_string(text_template,
                                             {'user': model, 'site': site})
-            html_content = render_to_string('tinyblog/emails/confirm_subscription.html',
+
+            html_template = 'tinyblog/emails/confirm_subscription.html'
+            html_content = render_to_string(html_template,
                                             {'user': model, 'site': site})
+
             to = model.email
-            msg = EmailMultiAlternatives(subject, text_content, get_from_email(), [to, ])
+            msg = EmailMultiAlternatives(subject, text_content,
+                                         get_from_email(), [to, ])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
 
@@ -87,7 +98,10 @@ def subscribe(request):
 
 
 def subscribe_thanks(request):
-    subscriber = get_object_or_404(EmailSubscriber, uuid_first=request.session['tinyblog_thanks_uuid'])
+    subscriber = get_object_or_404(
+        EmailSubscriber,
+        uuid_first=request.session['tinyblog_thanks_uuid']
+    )
     return render_to_response('tinyblog/subscribe_thanks.html',
                               {'subscriber': subscriber},
                               context_instance=RequestContext(request))
