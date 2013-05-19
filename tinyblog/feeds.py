@@ -18,9 +18,9 @@ class LatestEntriesFeed(Feed):
     def author_link(self):
         return settings.TINYBLOG_AUTHORLINK
 
-    def copyright(self):
+    def feed_copyright(self):
         return (u'Copyright (c) %d %s.'
-                % (date.now().year, settings.TINYBLOG_AUTHORNAME))
+                % (date.today().year, settings.TINYBLOG_AUTHORNAME))
 
     def link(self, obj):
         return reverse('tinyblog_index')
