@@ -1,6 +1,5 @@
 from django import template
 from django.conf import settings
-from tinyblog import assignment_tag
 
 register = template.Library()
 
