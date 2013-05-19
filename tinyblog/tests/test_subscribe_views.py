@@ -3,6 +3,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from tinyblog.models import EmailSubscriber
 
+from .utils import EmailSubscriberFactory
+
 
 class TestSubscribeViews(TestCase):
     def test_subscribe_get(self):
@@ -33,6 +35,7 @@ class TestSubscribeViews(TestCase):
         subscriber = EmailSubscriber.objects.get(pk=1)
         self.assertFalse(subscriber.confirmed)
         self.assertFalse(subscriber.unsubscribed)
+        self.assertEqual(unicode(subscriber), 'to@example.com')
 
         self.assertEqual(response.context['subscriber'], subscriber)
 
@@ -49,3 +52,21 @@ class TestSubscribeViews(TestCase):
         self.assertEqual(themail.from_email,
                          'from@example.com')
         self.assertTrue(themail.body.index(str(subscriber.uuid_second)) > 0)
+        self.assertTrue(themail.body.index(subscriber.confirm_url()) > 0)
+        self.assertTrue(themail.body.index(subscriber.unsubscribe_url()) > 0)
+
+    def test_subscribe_confirm(self):
+        subscriber = EmailSubscriberFactory.create()
+        self.assertFalse(subscriber.confirmed)
+        response = self.client.get(subscriber.confirm_url())
+        self.assertEqual(response.status_code, 200)
+        subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
+        self.assertTrue(subscriber.confirmed)
+
+    def test_unsubscribe(self):
+        subscriber = EmailSubscriberFactory.create(confirmed=True)
+        self.assertFalse(subscriber.unsubscribed)
+        response = self.client.get(subscriber.unsubscribe_url())
+        self.assertEqual(response.status_code, 200)
+        subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
+        self.assertTrue(subscriber.unsubscribed)
