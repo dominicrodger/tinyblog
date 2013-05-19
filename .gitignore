@@ -4,3 +4,4 @@
 *.tox/
 pep8.txt
 coverage.xml
+dist/
