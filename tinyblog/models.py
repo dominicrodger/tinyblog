@@ -9,7 +9,9 @@ from uuidfield import UUIDField
 
 class CurrentSubscribersManager(models.Manager):
     def get_query_set(self):
-        return super(CurrentSubscribersManager, self).get_query_set().filter(confirmed=True, unsubscribed=False)
+        return super(CurrentSubscribersManager,
+                     self).get_query_set().filter(confirmed=True,
+                                                  unsubscribed=False)
 
 
 class EmailSubscriber(models.Model):
