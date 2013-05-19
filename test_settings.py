@@ -35,3 +35,5 @@ PASSWORD_HASHERS = (
 )
 
 SITE_ID = 1
+
+TINYBLOG_FROM_EMAIL='from@example.com'
