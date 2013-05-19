@@ -6,7 +6,7 @@ setup(
     name='tinyblog',
     version=tinyblog.__version__,
     description='A Django app for a very simple blog.',
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     author='Dominic Rodger',
     author_email='internet@dominicrodger.com',
     url='https://bitbucket.org/dominicrodger/tinyblog',
