@@ -2,6 +2,7 @@ from haystack.indexes import SearchIndex, CharField
 from haystack import site
 from tinyblog.models import Post
 
+
 class PostIndex(SearchIndex):
     text = CharField(document=True, use_template=True)
 

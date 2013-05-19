@@ -3,6 +3,7 @@ from django.core import serializers
 import requests
 from tinyblog.models import Post
 
+
 class Command(BaseCommand):
     args = 'url'
     help = u'Fetches blog entries from <url>, and loads them into tinyblog.'
@@ -21,7 +22,7 @@ class Command(BaseCommand):
         for obj in serializers.deserialize("json", r.content):
             self.stdout.write(u'Processing "{0}"...\n'.format(obj.object.title))
             try:
-                Post.objects.get(slug = obj.object.slug)
+                Post.objects.get(slug=obj.object.slug)
                 self.stdout.write(u'Already had existing object with the slug "{0}".\n'.format(obj.object.slug))
             except Post.DoesNotExist:
                 obj.save()

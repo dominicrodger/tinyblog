@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from tinyblog.models import Post, EmailSubscriber
 from tinyblog.utils import get_from_email
 
+
 class Command(BaseCommand):
     args = 'url'
     help = u'Sends the oldest unsent, published blog entry to all e-mail subscribers.'
@@ -15,9 +16,9 @@ class Command(BaseCommand):
 
         subject = post.title
         text_content = render_to_string('tinyblog/emails/blog_post.txt',
-                                        { 'user': subscriber, 'site': site, 'post': post })
+                                        {'user': subscriber, 'site': site, 'post': post})
         html_content = render_to_string('tinyblog/emails/blog_post.html',
-                                        { 'user': subscriber, 'site': site, 'post': post })
+                                        {'user': subscriber, 'site': site, 'post': post})
         to = subscriber.email
         msg = EmailMultiAlternatives(subject, text_content,
                                      get_from_email(), [to, ])
@@ -26,7 +27,7 @@ class Command(BaseCommand):
         return msg
 
     def handle(self, *args, **options):
-        posts = Post.published_objects.order_by('created').filter(emailed = False).all()
+        posts = Post.published_objects.order_by('created').filter(emailed=False).all()
 
         if not posts:
             print "There are no posts to publish."

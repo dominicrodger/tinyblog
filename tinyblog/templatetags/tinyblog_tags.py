@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.inclusion_tag('tinyblog/_post_date.html')
 def tinyblog_post_date(object_date):
-    return { 'thedate': object_date }
+    return {'thedate': object_date}
 
 
 @register.assignment_tag

@@ -14,21 +14,23 @@ from tinyblog.utils import get_from_email
 
 
 def post(request, year, month, slug):
-    post = get_object_or_404(Post, created__year = year, created__month = month, slug = slug)
+    post = get_object_or_404(Post, created__year=year, created__month=month, slug=slug)
 
     if post.created > datetime.now():
         if not request.user.is_staff:
             raise Http404
 
     return render_to_response('tinyblog/post.html',
-                              { 'post': post },
+                              {'post': post},
                               context_instance=RequestContext(request))
+
 
 class TinyBlogIndexView(ArchiveIndexView):
     date_field = 'created'
 
     def get_queryset(self):
         return Post.published_objects.all()
+
 
 class TinyBlogYearView(YearArchiveView):
     date_field = 'created'
@@ -37,6 +39,7 @@ class TinyBlogYearView(YearArchiveView):
     def get_queryset(self):
         return Post.published_objects.all()
 
+
 class TinyBlogMonthView(MonthArchiveView):
     date_field = 'created'
     month_format = '%m'
@@ -44,15 +47,17 @@ class TinyBlogMonthView(MonthArchiveView):
     def get_queryset(self):
         return Post.published_objects.all()
 
+
 def jsonify(request):
     data = serializers.serialize("json", Post.published_objects.all())
     return HttpResponse(data)
+
 
 def subscribe(request):
     if request.method == 'GET':
         form = EmailSubscriptionForm()
         return render_to_response('tinyblog/subscribe.html',
-                                  { 'form': form},
+                                  {'form': form},
                                   context_instance=RequestContext(request))
     else:
         form = EmailSubscriptionForm(request.POST)
@@ -66,9 +71,9 @@ def subscribe(request):
 
             subject = 'Thanks for subscribing to {0}'.format(site)
             text_content = render_to_string('tinyblog/emails/confirm_subscription.txt',
-                                            { 'user': model, 'site': site })
+                                            {'user': model, 'site': site})
             html_content = render_to_string('tinyblog/emails/confirm_subscription.html',
-                                            { 'user': model, 'site': site })
+                                            {'user': model, 'site': site})
             to = model.email
             msg = EmailMultiAlternatives(subject, text_content, get_from_email(), [to, ])
             msg.attach_alternative(html_content, "text/html")
@@ -77,29 +82,32 @@ def subscribe(request):
             return HttpResponseRedirect(reverse('tinyblog_subscribe_thanks'))
 
         return render_to_response('tinyblog/subscribe.html',
-                                  { 'form': form},
+                                  {'form': form},
                                   context_instance=RequestContext(request))
 
+
 def subscribe_thanks(request):
-    subscriber = get_object_or_404(EmailSubscriber, uuid_first = request.session['tinyblog_thanks_uuid'])
+    subscriber = get_object_or_404(EmailSubscriber, uuid_first=request.session['tinyblog_thanks_uuid'])
     return render_to_response('tinyblog/subscribe_thanks.html',
-                              { 'subscriber': subscriber },
+                              {'subscriber': subscriber},
                               context_instance=RequestContext(request))
 
+
 def subscribe_confirm(request, uuid):
-    subscriber = get_object_or_404(EmailSubscriber, uuid_second = uuid)
+    subscriber = get_object_or_404(EmailSubscriber, uuid_second=uuid)
     subscriber.confirmed = True
     subscriber.save()
 
     return render_to_response('tinyblog/subscribe_confirmed.html',
-                              { 'subscriber': subscriber },
+                              {'subscriber': subscriber},
                               context_instance=RequestContext(request))
 
+
 def unsubscribe(request, uuid):
-    subscriber = get_object_or_404(EmailSubscriber, uuid_second = uuid)
+    subscriber = get_object_or_404(EmailSubscriber, uuid_second=uuid)
     subscriber.unsubscribed = True
     subscriber.save()
 
     return render_to_response('tinyblog/unsubscribe.html',
-                              { 'subscriber': subscriber },
+                              {'subscriber': subscriber},
                               context_instance=RequestContext(request))

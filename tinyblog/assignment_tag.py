@@ -25,6 +25,7 @@ if not hasattr(Library, 'assignment_tag'):
     # Regex for token keyword arguments
     kwarg_re = re.compile(r"(?:(\w+)=)?(.+)")
 
+
     def token_kwargs(bits, parser, support_legacy=False):
         """
         A utility method for parsing token keyword arguments.
@@ -73,6 +74,7 @@ if not hasattr(Library, 'assignment_tag'):
                     return kwargs
                 del bits[:1]
         return kwargs
+
 
     def parse_bits(parser, bits, params, varargs, varkw, defaults,
                takes_context, name):
@@ -164,46 +166,45 @@ if not hasattr(Library, 'assignment_tag'):
 
 
     def assignment_tag(self, func=None, takes_context=None, name=None):
-            def dec(func):
-                params, varargs, varkw, defaults = getargspec(func)
+        def dec(func):
+            params, varargs, varkw, defaults = getargspec(func)
 
-                class AssignmentNode(TagHelperNode):
-                    def __init__(self, takes_context, args, kwargs, target_var):
-                        super(AssignmentNode, self).__init__(takes_context, args, kwargs)
-                        self.target_var = target_var
+            class AssignmentNode(TagHelperNode):
+                def __init__(self, takes_context, args, kwargs, target_var):
+                    super(AssignmentNode, self).__init__(takes_context, args, kwargs)
+                    self.target_var = target_var
 
-                    def render(self, context):
-                        resolved_args, resolved_kwargs = self.get_resolved_arguments(context)
-                        context[self.target_var] = func(*resolved_args, **resolved_kwargs)
-                        return ''
+                def render(self, context):
+                    resolved_args, resolved_kwargs = self.get_resolved_arguments(context)
+                    context[self.target_var] = func(*resolved_args, **resolved_kwargs)
+                    return ''
 
-                function_name = (name or
+            function_name = (name or
                     getattr(func, '_decorated_function', func).__name__)
 
-                def compile_func(parser, token):
-                    bits = token.split_contents()[1:]
-                    if len(bits) < 2 or bits[-2] != 'as':
-                        raise TemplateSyntaxError(
+            def compile_func(parser, token):
+                bits = token.split_contents()[1:]
+                if len(bits) < 2 or bits[-2] != 'as':
+                    raise TemplateSyntaxError(
                             "'%s' tag takes at least 2 arguments and the "
                             "second last argument must be 'as'" % function_name)
-                    target_var = bits[-1]
-                    bits = bits[:-2]
-                    args, kwargs = parse_bits(parser, bits, params,
+                target_var = bits[-1]
+                bits = bits[:-2]
+                args, kwargs = parse_bits(parser, bits, params,
                         varargs, varkw, defaults, takes_context, function_name)
-                    return AssignmentNode(takes_context, args, kwargs, target_var)
+                return AssignmentNode(takes_context, args, kwargs, target_var)
 
-                compile_func.__doc__ = func.__doc__
-                self.tag(function_name, compile_func)
-                return func
+            compile_func.__doc__ = func.__doc__
+            self.tag(function_name, compile_func)
+            return func
 
-            if func is None:
-                # @register.assignment_tag(...)
-                return dec
-            elif callable(func):
-                # @register.assignment_tag
-                return dec(func)
-            else:
-                raise TemplateSyntaxError("Invalid arguments provided to assignment_tag")
-
+        if func is None:
+            # @register.assignment_tag(...)
+            return dec
+        elif callable(func):
+            # @register.assignment_tag
+            return dec(func)
+        else:
+            raise TemplateSyntaxError("Invalid arguments provided to assignment_tag")
 
     Library.assignment_tag = assignment_tag
