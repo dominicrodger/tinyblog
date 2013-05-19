@@ -74,10 +74,10 @@ class Post(models.Model):
             raise ValidationError('Slugs must only contain lowercase characters, numbers and hyphens.')
 
     def get_teaser(self):
-        if self.teaser:
-            return self.teaser
+        if self.teaser_html:
+            return self.teaser_html
 
-        return truncatewords(self.text, 100)
+        return truncatewords(self.text_html, 100)
 
     def full_text(self):
         return self.teaser_html + u'\n' + self.text_html
