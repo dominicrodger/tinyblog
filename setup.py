@@ -8,8 +8,7 @@ setup(
     description='A Django app for a very simple blog.',
     long_description=open('README.rst').read(),
     author='Dominic Rodger',
-    author_email='internet@dominicrodger.com',
-    url='https://bitbucket.org/dominicrodger/tinyblog',
+    url='https://github.com/dominicrodger/tinyblog/',
     license='BSD',
     packages=find_packages(),
     include_package_data=True,
@@ -25,4 +24,14 @@ setup(
         'factory_boy==1.3.0'
     ],
     test_suite='setuptest.setuptest.SetupTestSuite',
+    classifiers=[
+        'Framework :: Django',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
+        'Topic :: Software Development'
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+    ],
 )
