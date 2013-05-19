@@ -1,0 +1,8 @@
+<p>You can view this post online at
+<a href="http://{{ site }}{{ post.get_absolute_url }}" title="View this page in your browser">http://{{ site }}{{ post.get_absolute_url }}</a>.</p>
+
+<hr />
+
+{{ post.full_text|safe }}
+
+{% include 'tinyblog/emails/unsubscribe_link.html' with user=user only %}

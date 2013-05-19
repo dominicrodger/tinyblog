@@ -1,0 +1,9 @@
+<h1>Thanks!</h1>
+
+{% load url from future %}
+
+<p>An email is on its way to <strong>{{ subscriber.email }}</strong>, you&rsquo;ll need to click the link in the email to confirm your subscription before we&rsquo;ll send you emails.</p>
+
+<p>If you haven&rsquo;t got an email from us in a few minutes, consider checking your junk mail folders.</p>
+
+<p>You may now return to <a href="{% url 'tinyblog_index' %}">reading the blog</a>.</p>

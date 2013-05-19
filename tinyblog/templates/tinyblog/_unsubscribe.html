@@ -1,0 +1,7 @@
+<h1>Subscription Cancelled</h1>
+
+{% load url from future %}
+
+<p><strong>{{ subscriber.email }}</strong> will no longer receive new blog posts. Sorry to see you go!</p>
+
+<p>You may now return to <a href="{% url 'tinyblog_index' %}">reading the blog</a>.</p>

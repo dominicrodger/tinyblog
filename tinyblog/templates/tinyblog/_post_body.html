@@ -1,0 +1,4 @@
+<h1>{{ post.title }}</h1>
+<div class="leading">{{ post.teaser_html|safe }}</div>
+{{ post.text_html|safe }}
+<p class="note">Published at {{ post.created|date:"f a" }}</p>

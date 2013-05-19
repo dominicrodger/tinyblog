@@ -1,0 +1,9 @@
+{% load tinyblog_tags %}
+
+<div class="pad">
+    <div class="blog_post">
+    {% tinyblog_post_date post.created %}
+    {% include 'tinyblog/_post_body.html' %}
+    {% include 'tinyblog/comments.html' %}
+    </div>
+</div>

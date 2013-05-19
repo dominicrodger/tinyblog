@@ -1,0 +1,7 @@
+<h1>Subscription Confirmed</h1>
+
+{% load url from future %}
+
+<p>Thanks! You&rsquo;re now signed up to get new blog posts via email at <strong>{{ subscriber.email }}</strong>.</p>
+
+<p>You may now return to <a href="{% url 'tinyblog_index' %}">reading the blog</a>.</p>

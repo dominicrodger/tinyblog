@@ -1,0 +1,16 @@
+Thanks for subscribing to {{ site }} - we hope you'll enjoy reading
+the e-mails we send.
+
+To make sure we only send e-mails people want to read, please confirm
+your subscription at {{ user.confirm_url }}. If you didn't intend to
+subscribe to {{ site }}, no further action is necessary - this is the
+last you'll hear from us.
+
+If at any time you want to unsubscribe, there'll be a link you can
+follow at the bottom of every e-mail we send.
+
+Thanks,
+
+The {{ site }} team
+
+{% include 'tinyblog/emails/unsubscribe_link.txt' with user=user only %}

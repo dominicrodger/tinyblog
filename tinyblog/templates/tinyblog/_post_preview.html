@@ -1,0 +1,11 @@
+{% load tinyblog_tags %}
+<div class="blog_post">
+{% tinyblog_post_date post.created %}
+<h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+<p>{{ post.teaser_html|safe|striptags }}</p>
+<p class="note" style="margin-top: 1em;">Published at {{ post.created|date:"f a" }}.
+<a href="{{ post.get_absolute_url }}#disqus_thread" data-disqus-identifier="blogpost_{{ post.pk }}">Comments</a>
+|
+<a href="{{ post.get_absolute_url }}">Read more &raquo;</a>
+</p>
+</div>

@@ -1,0 +1,11 @@
+{% extends 'tinyblog/base.html' %}
+
+{% block contents %}
+<div class="pad">
+        
+{% for post in latest %}
+    {% include 'tinyblog/_post_preview.html' %}
+{% endfor %}
+
+</div>
+{% endblock %}

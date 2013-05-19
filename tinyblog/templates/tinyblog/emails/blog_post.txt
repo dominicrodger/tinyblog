@@ -1,0 +1,8 @@
+(If this e-mail isn't displayed correctly, you can view it online at
+http://{{ site }}{{ post.get_absolute_url }}.)
+
+----------------------------------------
+
+{{ post.full_text|striptags }}
+
+{% include 'tinyblog/emails/unsubscribe_link.txt' with user=user only %}
