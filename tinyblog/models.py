@@ -130,7 +130,7 @@ class Post(models.Model):
     @classmethod
     def get_next_post_to_email(cls):
         posts = Post.published_objects.order_by('created')
-        posts = posts.filter(emailed=False).all()
+        posts = posts.filter(emailed=False).all()[:1]
 
         if not posts:
             raise Post.DoesNotExist
