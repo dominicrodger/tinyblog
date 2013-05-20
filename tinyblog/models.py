@@ -1,10 +1,15 @@
 from datetime import datetime
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
+from django.core import mail
+from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import truncatewords, slugify
+from django.template.loader import render_to_string
 from django.db import models
 from uuidfield import UUIDField
+
+from tinyblog.utils import get_from_email
 
 
 class CurrentSubscribersManager(models.Manager):
@@ -88,6 +93,39 @@ class Post(models.Model):
 
     def published(self):
         return self.created <= datetime.now()
+
+    def generate_mail(self, subscriber, site):
+        text_content = render_to_string('tinyblog/emails/blog_post.txt',
+                                        {'user': subscriber,
+                                         'site': site,
+                                         'post': self})
+        html_content = render_to_string('tinyblog/emails/blog_post.html',
+                                        {'user': subscriber,
+                                         'site': site,
+                                         'post': self})
+
+        msg = EmailMultiAlternatives(self.title, text_content,
+                                     get_from_email(),
+                                     [subscriber.email, ])
+        msg.attach_alternative(html_content, "text/html")
+
+        return msg
+
+    def mail_subscribers(self, site):
+        mail_queue = []
+
+        subscribers = EmailSubscriber.current_objects.all()
+
+        for subscriber in subscribers:
+            mail_queue.append(self.generate_mail(subscriber, site))
+
+        connection = mail.get_connection()
+        connection.open()
+
+        connection.send_messages(mail_queue)
+        connection.close()
+
+        return len(subscribers)
 
     class Meta:
         ordering = ['-created']
