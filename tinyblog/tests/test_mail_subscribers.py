@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.core import mail
 from django.core.management import call_command
 from django.test import TestCase
@@ -32,7 +33,13 @@ class TestMailSubscribers(TestCase):
                          "'Sample Post' e-mailed to 0 subscriber(s).")
 
     def test_with_subscribers(self):
-        post = PostFactory.create(title='Mail Everyone')
+        post = PostFactory.create(title='Mail Everyone (already sent)',
+                                  created=datetime(2011, 1, 1, 7, 0, 0),
+                                  emailed=True)
+        post = PostFactory.create(title='Mail Everyone',
+                                  created=datetime(2012, 1, 1, 7, 0, 0))
+        post = PostFactory.create(title='Mail Everyone (newer)',
+                                  created=datetime(2013, 1, 1, 7, 0, 0))
 
         subscriber1 = EmailSubscriberFactory.create(
             email='to1@example.com',
