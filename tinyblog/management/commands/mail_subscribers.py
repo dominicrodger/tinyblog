@@ -21,7 +21,6 @@ class Command(BaseCommand):
 
         site = Site.objects.get_current()
         num_subscribers = earliest_post.mail_subscribers(site)
-        print earliest_post.title
 
         earliest_post.emailed = True
         earliest_post.save()

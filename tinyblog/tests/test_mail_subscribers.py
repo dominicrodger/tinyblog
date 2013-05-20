@@ -25,11 +25,8 @@ class TestMailSubscribers(TestCase):
 
     def test_no_subscribers(self):
         post = PostFactory.create(title='Sample Post')
-        lines = mail_subscribers().split('\n')
-        self.assertEqual(len(lines), 2)
-        self.assertEqual(lines[0],
-                         "Sample Post")
-        self.assertEqual(lines[1],
+        printed = mail_subscribers()
+        self.assertEqual(printed,
                          "'Sample Post' e-mailed to 0 subscriber(s).")
 
     def test_with_subscribers(self):
@@ -62,11 +59,8 @@ class TestMailSubscribers(TestCase):
             unsubscribed=True,
         )
 
-        lines = mail_subscribers().split('\n')
-        self.assertEqual(len(lines), 2)
-        self.assertEqual(lines[0],
-                         "Mail Everyone")
-        self.assertEqual(lines[1],
+        printed = mail_subscribers()
+        self.assertEqual(printed,
                          "'Mail Everyone' e-mailed to 2 subscriber(s).")
 
         self.assertEqual(len(mail.outbox), 2)
