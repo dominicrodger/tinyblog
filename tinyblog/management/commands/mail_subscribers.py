@@ -10,20 +10,18 @@ class Command(BaseCommand):
             'all e-mail subscribers.')
 
     def handle(self, *args, **options):
-        posts = Post.published_objects.order_by('created')
-        posts = posts.filter(emailed=False).all()
-
-        if not posts:
+        try:
+            post = Post.get_next_post_to_email()
+        except Post.DoesNotExist:
             print "There are no posts to publish."
             return
 
-        earliest_post = posts[0]
-
         site = Site.objects.get_current()
-        num_subscribers = earliest_post.mail_subscribers(site)
+        num_subscribers = post.mail_subscribers(site)
 
-        earliest_post.emailed = True
-        earliest_post.save()
+        post.emailed = True
+        post.save()
+
         print ("'{0}' e-mailed to {1} "
-               "subscriber(s).".format(earliest_post.title,
+               "subscriber(s).".format(post.title,
                                        num_subscribers))

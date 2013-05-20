@@ -127,5 +127,15 @@ class Post(models.Model):
 
         return len(subscribers)
 
+    @classmethod
+    def get_next_post_to_email(cls):
+        posts = Post.published_objects.order_by('created')
+        posts = posts.filter(emailed=False).all()
+
+        if not posts:
+            raise Post.DoesNotExist
+
+        return posts[0]
+
     class Meta:
         ordering = ['-created']
