@@ -4,7 +4,6 @@ from tinyblog.models import Post
 
 
 class Command(BaseCommand):
-    args = 'url'
     help = ('Sends the oldest unsent, published blog entry to '
             'all e-mail subscribers.')
 
