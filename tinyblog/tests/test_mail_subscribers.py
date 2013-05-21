@@ -1,21 +1,16 @@
 from datetime import datetime
 from django.core import mail
-from django.core.management import call_command
 from django.test import TestCase
-from StringIO import StringIO
-import sys
 
-from .utils import PostFactory, EmailSubscriberFactory
+from .utils import (
+    PostFactory,
+    EmailSubscriberFactory,
+    test_command
+)
 
 
 def mail_subscribers():
-    content = StringIO()
-    original_stdout = sys.stdout
-    sys.stdout = content
-    call_command("mail_subscribers", stdout=content)
-    content.seek(0)
-    sys.stdout = original_stdout
-    return content.read().strip()
+    return test_command("mail_subscribers")
 
 
 class TestMailSubscribers(TestCase):
