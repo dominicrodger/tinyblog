@@ -6,10 +6,10 @@ from .utils import PostFactory
 
 class TestFeeds(TestCase):
     def test_feeds_with_entries(self):
-        post1 = PostFactory.create(
+        PostFactory.create(
             title='Published',
         )
-        post2 = PostFactory.create(
+        PostFactory.create(
             created=datetime.now() + timedelta(days=1),
             title='Unpublished',
         )

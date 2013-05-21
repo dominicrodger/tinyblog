@@ -12,7 +12,7 @@ class TestBasicViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_index_with_entries(self):
-        post = PostFactory.create()
+        PostFactory.create()
         url = reverse('tinyblog_index')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -33,7 +33,7 @@ class TestBasicViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_year_index_with_entries(self):
-        post = PostFactory.create()
+        PostFactory.create()
         url = reverse('tinyblog_year', args=['2013', ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
@@ -44,7 +44,7 @@ class TestBasicViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_month_index_with_entries(self):
-        post = PostFactory.create()
+        PostFactory.create()
         url = reverse('tinyblog_month', args=['2013', '01'])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)

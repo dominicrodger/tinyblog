@@ -1,7 +1,6 @@
 from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
-from django.template.loader import render_to_string
-from tinyblog.models import Post, EmailSubscriber
+from tinyblog.models import Post
 
 
 class Command(BaseCommand):
