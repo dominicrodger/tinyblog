@@ -1,13 +1,13 @@
 from django.contrib.sites.models import Site
-from django.core.management.base import BaseCommand
+from django.core.management.base import NoArgsCommand
 from tinyblog.models import Post
 
 
-class Command(BaseCommand):
+class Command(NoArgsCommand):
     help = ('Sends the oldest unsent, published blog entry to '
             'all e-mail subscribers.')
 
-    def handle(self, *args, **options):
+    def handle_noargs(self, *args, **options):
         try:
             post = Post.get_next_post_to_email()
         except Post.DoesNotExist:
