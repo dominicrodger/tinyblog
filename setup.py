@@ -20,8 +20,9 @@ setup(
         'django-uuidfield==0.4.0',
     ],
     tests_require=[
-        'django-setuptest==0.1.2',
-        'factory_boy==1.3.0'
+        'django-setuptest==0.1.3',
+        'factory_boy==1.3.0',
+        'mock==1.0.1',
     ],
     test_suite='setuptest.setuptest.SetupTestSuite',
     classifiers=[
