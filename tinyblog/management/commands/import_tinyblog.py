@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.core import serializers
 import requests
+from requests import exceptions
 from tinyblog.models import Post
 
 
@@ -14,7 +15,10 @@ class Command(BaseCommand):
 
         url = args[0]
 
-        r = requests.get(url)
+        try:
+            r = requests.get(url)
+        except exceptions.MissingSchema as e:
+            raise CommandError(e.message)
 
         if r.status_code != 200:
             raise CommandError(u"Received status {0} from {1}, expected 200.".format(r.status_code, url))
