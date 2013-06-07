@@ -45,6 +45,22 @@ class TestImportTinyblog(TestCase):
             with self.assertRaises(CommandError):
                 test_command("import_tinyblog", "http://test/")
 
+    def test_with_url_that_returns_json_not_posts(self):
+        def get_fake_response(k):
+            return FakeResponse(200, "{ \"a\": 1 }")
+
+        with patch('requests.get', Mock(side_effect=get_fake_response)):
+            with self.assertRaises(CommandError):
+                test_command("import_tinyblog", "http://test/")
+
+    def test_with_url_that_returns_non_json(self):
+        def get_fake_response(k):
+            return FakeResponse(200, "Hello, world")
+
+        with patch('requests.get', Mock(side_effect=get_fake_response)):
+            with self.assertRaises(CommandError):
+                test_command("import_tinyblog", "http://test/")
+
     def test_with_object_that_does_exist(self):
         PostFactory.create(title='Sample Post', slug='foobar')
 
