@@ -14,7 +14,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'Django',
+        'Django>=1.4',
         'requests==1.2.0',
         'django-tinymce==1.5.1b4',
         'django-uuidfield==0.4.0',
