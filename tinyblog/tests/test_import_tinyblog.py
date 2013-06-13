@@ -1,11 +1,8 @@
 import django
-from datetime import datetime
-from django.core import mail
 from django.core import serializers
 from django.core.management.base import CommandError
 from django.test import TestCase
 from mock import Mock, patch
-from requests.exceptions import ConnectionError
 from django.utils.unittest import skipIf
 from tinyblog.models import Post
 from .utils import test_command, PostFactory
