@@ -22,14 +22,18 @@ class Command(BaseCommand):
             raise CommandError(e.message)
 
         if r.status_code != 200:
-            raise CommandError(u"Received status {0} from {1}, expected 200.".format(r.status_code, url))
+            raise CommandError("Received status {0} from {1},"
+                               "expected 200.".format(r.status_code, url))
 
         try:
             for obj in serializers.deserialize("json", r.content):
-                self.stdout.write(u'Processing "{0}"...\n'.format(obj.object.title))
+                msg = 'Processing "{0}"...\n'.format(obj.object.title)
+                self.stdout.write(msg)
                 try:
                     Post.objects.get(slug=obj.object.slug)
-                    self.stdout.write(u'Already had existing object with the slug "{0}".\n'.format(obj.object.slug))
+                    msg = ('Already had existing object with the slug '
+                           '"{0}".\n'.format(obj.object.slug))
+                    self.stdout.write(msg)
                 except Post.DoesNotExist:
                     obj.save()
                     self.stdout.write(u'Saved new object.\n')
