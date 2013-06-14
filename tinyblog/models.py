@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError
 from django.core import mail
 from django.core.mail import EmailMultiAlternatives
@@ -9,7 +8,7 @@ from django.template.loader import render_to_string
 from django.db import models
 from uuidfield import UUIDField
 
-from tinyblog.utils import get_from_email
+from tinyblog.utils import get_from_email, get_site
 
 
 class CurrentSubscribersManager(models.Manager):
@@ -37,13 +36,13 @@ class EmailSubscriber(models.Model):
         return self.email
 
     def confirm_url(self):
-        current_site = Site.objects.get_current()
+        current_site = get_site()
         relative_url = reverse('tinyblog_subscribe_confirm',
                                args=[self.uuid_second, ])
         return u'http://{0}{1}'.format(current_site, relative_url)
 
     def unsubscribe_url(self):
-        current_site = Site.objects.get_current()
+        current_site = get_site()
         relative_url = reverse('tinyblog_unsubscribe',
                                args=[self.uuid_second, ])
         return u'http://{0}{1}'.format(current_site, relative_url)

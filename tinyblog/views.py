@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.contrib.sites.models import Site
 from django.core import serializers
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
@@ -14,7 +13,7 @@ from django.views.generic import (
 )
 from tinyblog.forms import EmailSubscriptionForm, EmailSubscriber
 from tinyblog.models import Post
-from tinyblog.utils import get_from_email
+from tinyblog.utils import get_from_email, get_site
 
 
 def post(request, year, month, slug):
@@ -71,7 +70,7 @@ def subscribe(request):
             model = form.save()
             request.session['tinyblog_thanks_uuid'] = model.uuid_first
 
-            current_site = Site.objects.get_current()
+            current_site = get_site()
             site = current_site.name
 
             subject = 'Thanks for subscribing to {0}'.format(site)
