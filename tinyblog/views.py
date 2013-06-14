@@ -13,7 +13,7 @@ from django.views.generic import (
 )
 from tinyblog.forms import EmailSubscriptionForm, EmailSubscriber
 from tinyblog.models import Post
-from tinyblog.utils import get_from_email, get_site
+from tinyblog.utils import get_from_email, get_site_name
 
 
 def post(request, year, month, slug):
@@ -70,8 +70,7 @@ def subscribe(request):
             model = form.save()
             request.session['tinyblog_thanks_uuid'] = model.uuid_first
 
-            current_site = get_site()
-            site = current_site.name
+            site = get_site_name()
 
             subject = 'Thanks for subscribing to {0}'.format(site)
 

@@ -8,3 +8,7 @@ def get_from_email():
 
 def get_site():
     return Site.objects.get_current()
+
+
+def get_site_name():
+    return get_site().name
