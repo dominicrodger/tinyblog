@@ -6,3 +6,4 @@ from .test_posts import TestPosts
 from .test_feeds import TestFeeds
 from .test_mail_subscribers import TestMailSubscribers
 from .test_import_tinyblog import TestImportTinyblog
+from .test_utils import TestWithSitesFramework, TestWithoutSitesFramework

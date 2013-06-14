@@ -1,7 +1,8 @@
 Settings
 ========
 
-tinyblog has 5 relevant settings, all of which are required:
+tinyblog has 7 relevant settings, 5 of which are required in normal
+use, and 2 of which may be required.
 
 ``TINYBLOG_FROM_EMAIL``
 -----------------------
@@ -28,3 +29,18 @@ Used in the RSS feed to provide the feed description.
 
 Used in the RSS feed to provide a link to the post author's website
 (not widely used by RSS readers).
+
+``TINYBLOG_SITE_NAME``
+----------------------
+
+If ``django.contrib.sites`` is not in ``INSTALLED_APPS``, this setting
+is required, and is used in emails sent by tinyblog.
+
+``TINYBLOG_SITE_DOMAIN``
+------------------------
+
+.. index::
+   single: TINYBLOG_SITE_DOMAIN
+
+If ``django.contrib.sites`` is not in ``INSTALLED_APPS``, this setting
+is required, and is used in emails sent by tinyblog as a link prefix.

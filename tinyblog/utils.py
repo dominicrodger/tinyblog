@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
+from django.core.exceptions import ImproperlyConfigured
 
 
 def get_from_email():
@@ -7,16 +8,24 @@ def get_from_email():
 
 
 def _get_site():
-    site = Site.objects.get_current()
-    return {
-        'domain': site.domain,
-        'name': site.name
-    }
+    return Site.objects.get_current()
 
 
 def get_site_name():
-    return _get_site()['name']
+    if 'django.contrib.sites' in settings.INSTALLED_APPS:
+        return _get_site().name
+
+    if not hasattr(settings, 'TINYBLOG_SITE_NAME'):
+        raise ImproperlyConfigured('Please set TINYBLOG_SITE_NAME.')
+
+    return settings.TINYBLOG_SITE_NAME
 
 
 def get_site_domain():
-    return _get_site()['domain']
+    if 'django.contrib.sites' in settings.INSTALLED_APPS:
+        return _get_site().domain
+
+    if not hasattr(settings, 'TINYBLOG_SITE_DOMAIN'):
+        raise ImproperlyConfigured('Please set TINYBLOG_SITE_DOMAIN.')
+
+    return settings.TINYBLOG_SITE_DOMAIN
