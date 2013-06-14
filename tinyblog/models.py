@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.db import models
 from uuidfield import UUIDField
 
-from tinyblog.utils import get_from_email, get_site
+from tinyblog.utils import get_from_email, get_site_domain
 
 
 class CurrentSubscribersManager(models.Manager):
@@ -36,16 +36,14 @@ class EmailSubscriber(models.Model):
         return self.email
 
     def confirm_url(self):
-        current_site = get_site()
         relative_url = reverse('tinyblog_subscribe_confirm',
                                args=[self.uuid_second, ])
-        return u'http://{0}{1}'.format(current_site, relative_url)
+        return u'http://{0}{1}'.format(get_site_domain(), relative_url)
 
     def unsubscribe_url(self):
-        current_site = get_site()
         relative_url = reverse('tinyblog_unsubscribe',
                                args=[self.uuid_second, ])
-        return u'http://{0}{1}'.format(current_site, relative_url)
+        return u'http://{0}{1}'.format(get_site_domain(), relative_url)
 
 
 class PublishedPostManager(models.Manager):
@@ -93,14 +91,14 @@ class Post(models.Model):
     def published(self):
         return self.created <= datetime.now()
 
-    def generate_mail(self, subscriber, site):
+    def generate_mail(self, subscriber, domain):
         text_content = render_to_string('tinyblog/emails/blog_post.txt',
                                         {'user': subscriber,
-                                         'site': site,
+                                         'site': domain,
                                          'post': self})
         html_content = render_to_string('tinyblog/emails/blog_post.html',
                                         {'user': subscriber,
-                                         'site': site,
+                                         'site': domain,
                                          'post': self})
 
         msg = EmailMultiAlternatives(self.title, text_content,
@@ -110,13 +108,15 @@ class Post(models.Model):
 
         return msg
 
-    def mail_subscribers(self, site):
+    def mail_subscribers(self):
         mail_queue = []
 
         subscribers = EmailSubscriber.current_objects.all()
 
+        domain = get_site_domain()
+
         for subscriber in subscribers:
-            mail_queue.append(self.generate_mail(subscriber, site))
+            mail_queue.append(self.generate_mail(subscriber, domain))
 
         connection = mail.get_connection()
         connection.open()

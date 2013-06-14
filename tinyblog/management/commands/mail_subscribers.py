@@ -1,6 +1,5 @@
 from django.core.management.base import NoArgsCommand
 from tinyblog.models import Post
-from tinyblog.utils import get_site
 
 
 class Command(NoArgsCommand):
@@ -14,7 +13,7 @@ class Command(NoArgsCommand):
             print "There are no posts to publish."
             return
 
-        num_subscribers = post.mail_subscribers(get_site())
+        num_subscribers = post.mail_subscribers()
 
         post.emailed = True
         post.save()
