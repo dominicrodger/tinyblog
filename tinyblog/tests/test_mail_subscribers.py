@@ -25,13 +25,21 @@ class TestMailSubscribers(TestCase):
                          "'Sample Post' e-mailed to 0 subscriber(s).")
 
     def test_with_subscribers(self):
-        PostFactory.create(title='Mail Everyone (already sent)',
-                           created=datetime(2011, 1, 1, 7, 0, 0),
-                           emailed=True)
-        PostFactory.create(title='Mail Everyone',
-                           created=datetime(2012, 1, 1, 7, 0, 0))
-        PostFactory.create(title='Mail Everyone (newer)',
-                           created=datetime(2013, 1, 1, 7, 0, 0))
+        PostFactory.create(
+            title='Mail Everyone (already sent)',
+            created=datetime(2011, 1, 1, 7, 0, 0),
+            emailed=True
+        )
+        PostFactory.create(
+            title='Mail Everyone',
+            created=datetime(2012, 1, 1, 7, 0, 0),
+            teaser_html='<a class="foo">Hello</a>!',
+            text_html='<span class="western">World</span>.'
+        )
+        PostFactory.create(
+            title='Mail Everyone (newer)',
+            created=datetime(2013, 1, 1, 7, 0, 0)
+        )
 
         subscriber1 = EmailSubscriberFactory.create(
             email='to1@example.com',
@@ -73,6 +81,16 @@ class TestMailSubscribers(TestCase):
                          'from@example.com')
         self.assertEqual(mail.outbox[1].from_email,
                          'from@example.com')
+
+        self.assertNotEqual(mail.outbox[0].body.find('Hello'), -1)
+        self.assertNotEqual(mail.outbox[0].body.find('World'), -1)
+        self.assertNotEqual(mail.outbox[1].body.find('Hello'), -1)
+        self.assertNotEqual(mail.outbox[1].body.find('World'), -1)
+
+        self.assertEqual(mail.outbox[0].body.find('western'), -1)
+        self.assertEqual(mail.outbox[0].body.find('foo'), -1)
+        self.assertEqual(mail.outbox[1].body.find('western'), -1)
+        self.assertEqual(mail.outbox[1].body.find('foo'), -1)
 
         unsubscribe_url1 = subscriber1.unsubscribe_url()
         unsubscribe_url2 = subscriber2.unsubscribe_url()

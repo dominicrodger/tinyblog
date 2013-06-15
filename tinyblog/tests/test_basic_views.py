@@ -12,15 +12,29 @@ class TestBasicViews(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_index_with_entries(self):
-        PostFactory.create()
+        PostFactory.create(
+            teaser_html='<a class="foo">Hello</a>!',
+            text_html='<span class="western">World</span>.'
+        )
         url = reverse('tinyblog_index')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'western')
+        self.assertNotContains(response, 'foo')
+        self.assertContains(response, 'Hello')
+        self.assertNotContains(response, 'World')
 
     def test_post_detail(self):
-        post = PostFactory.create()
+        post = PostFactory.create(
+            teaser_html='<a class="foo">Hello</a>!',
+            text_html='<span class="western">World</span>.'
+        )
         response = self.client.get(post.get_absolute_url())
         self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'western')
+        self.assertNotContains(response, 'foo')
+        self.assertContains(response, 'Hello')
+        self.assertContains(response, 'World')
 
     def test_uncreated_post_detail(self):
         post = PostFactory.create(created=datetime.now() + timedelta(days=1))

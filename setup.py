@@ -18,6 +18,7 @@ setup(
         'requests==1.2.0',
         'django-tinymce==1.5.1b4',
         'django-uuidfield==0.4.0',
+        'bleach==1.2.2',
     ],
     tests_require=[
         'django-setuptest==0.1.3',

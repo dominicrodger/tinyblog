@@ -3,6 +3,6 @@
 
 <hr />
 
-{{ post.full_text|safe }}
+{{ post.bleached_full_text|safe }}
 
 {% include 'tinyblog/emails/unsubscribe_link.html' with user=user only %}

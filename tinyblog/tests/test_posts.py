@@ -40,6 +40,15 @@ class TestPosts(TestCase):
         self.assertEqual(post.full_text(),
                          'Hello!\nWorld.')
 
+    def test_bleached_full_text(self):
+        post = PostFactory.build(
+            teaser_html='<a class="foo">Hello</a>!',
+            text_html='<span class="western">World</span>.'
+        )
+
+        self.assertEqual(post.bleached_full_text(),
+                         '<a>Hello</a>!\nWorld.')
+
     def test_get_teaser(self):
         post = PostFactory.build(
             text_html='Something something.'
