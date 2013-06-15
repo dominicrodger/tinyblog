@@ -1,12 +1,21 @@
 Release Notes
 *************
 
-0.2.0 (not yet started)
+0.2.1 (not yet started)
 =======================
 
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
+
+0.2.0
+=====
+
+* Add settings for allowed tags (``TINYBLOG_ALLOWED_TAGS``) and
+  allowed attributes (``TINYBLOG_ALLOWED_ATTRIBUTES``) in bleach.
+* Added a setting for not bleaching content at all
+  (``TINYBLOG_NO_BLEACH``).
+* Default to allowing the ``p`` tag through.
 
 0.1.9
 =====
