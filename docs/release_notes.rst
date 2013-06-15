@@ -2,7 +2,7 @@ Release Notes
 *************
 
 0.2.0 (not yet started)
-===================
+=======================
 
 * Improve pagination.
 * Add support for images.
