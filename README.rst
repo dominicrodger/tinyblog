@@ -1,4 +1,16 @@
 tinyblog
 ========
 
-A very simple blog application, written just for me.
+tinyblog is a Django app for single-author blogging. It has three key
+features:
+
+1. **Delayed publication:** Set a date and time when you want your
+   blog entry to be published.
+2. **Email lists:** Allow users to subscribe to email updates,
+   tinyblog will handle confirmation of email addresses, and will
+   always include unsubscribe links in any emails it sends.
+3. **Syndication:** tinyblog allows you to have the same content on
+   multiple sites, by exposing a JSON feed of posts, and allowing you
+   to import from that JSON feed from other sites.
+
+tinyblog is documented on https://tinyblog.readthedocs.org/.
