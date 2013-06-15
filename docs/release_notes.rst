@@ -11,6 +11,12 @@ Release Notes
 Done
 ----
 
+If you're using South, and have an existing installation of 0.1.8
+you'll need to run after installing, otherwise future migrations will
+fail::
+
+    python manage.py migrate tinyblog --fake
+
 * Added initial documentation.
 * Set up Travis CI integration for continuous integration testing.
 * Removed dependence on sites framework by introducing two settings
