@@ -57,8 +57,8 @@ class Post(models.Model):
     slug = models.SlugField(unique_for_month='created')
     created = models.DateTimeField()
     updated = models.DateTimeField(auto_now=True)
-    teaser_html = models.TextField(verbose_name=u'Teaser')
-    text_html = models.TextField(verbose_name=u'Main text')
+    teaser_html = models.TextField(verbose_name='Teaser')
+    text_html = models.TextField(verbose_name='Main text')
     emailed = models.BooleanField(default=False)
 
     objects = models.Manager()
