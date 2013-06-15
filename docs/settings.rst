@@ -39,8 +39,5 @@ is required, and is used in emails sent by tinyblog.
 ``TINYBLOG_SITE_DOMAIN``
 ------------------------
 
-.. index::
-   single: TINYBLOG_SITE_DOMAIN
-
 If ``django.contrib.sites`` is not in ``INSTALLED_APPS``, this setting
 is required, and is used in emails sent by tinyblog as a link prefix.
