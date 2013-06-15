@@ -1,15 +1,15 @@
 Release Notes
 *************
 
-0.1.9 (in progress)
+0.2.0 (not yet started)
 ===================
 
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
 
-Done
-----
+0.1.9
+=====
 
 If you're using South, and have an existing installation of 0.1.8
 you'll need to run after installing, otherwise future migrations will
