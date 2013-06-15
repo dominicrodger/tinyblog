@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.exceptions import ImproperlyConfigured
+import bleach
 
 
 def get_from_email():
@@ -29,3 +30,7 @@ def get_site_domain():
         raise ImproperlyConfigured('Please set TINYBLOG_SITE_DOMAIN.')
 
     return settings.TINYBLOG_SITE_DOMAIN
+
+
+def tinyblog_bleach(content):
+    return bleach.clean(content, strip=True)

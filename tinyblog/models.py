@@ -6,10 +6,13 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import truncatewords, slugify
 from django.template.loader import render_to_string
 from django.db import models
-import bleach
 from uuidfield import UUIDField
 
-from tinyblog.utils import get_from_email, get_site_domain
+from tinyblog.utils import (
+    get_from_email,
+    get_site_domain,
+    tinyblog_bleach
+)
 
 
 class CurrentSubscribersManager(models.Manager):
@@ -81,10 +84,10 @@ class Post(models.Model):
                                   'characters, numbers and hyphens.')
 
     def bleached_teaser(self):
-        return bleach.clean(self.teaser_html, strip=True)
+        return tinyblog_bleach(self.teaser_html)
 
     def bleached_text(self):
-        return bleach.clean(self.text_html, strip=True)
+        return tinyblog_bleach(self.text_html)
 
     def get_teaser(self):
         if self.teaser_html:
@@ -96,7 +99,7 @@ class Post(models.Model):
         return self.teaser_html + u'\n' + self.text_html
 
     def bleached_full_text(self):
-        return bleach.clean(self.full_text(), strip=True)
+        return tinyblog_bleach(self.full_text())
 
     def published(self):
         return self.created <= datetime.now()
