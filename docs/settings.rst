@@ -84,6 +84,6 @@ posts. Defaults to::
 ``TINYBLOG_NO_BLEACH``
 ----------------------
 
-Set to turn off bleaching content altogether. Defaults to
-``False``. If this setting is set, ``TINYBLOG_ALLOWED_TAGS`` and
+Set to ``True`` to turn off bleaching content altogether. Defaults to
+``False``. If this is set, ``TINYBLOG_ALLOWED_TAGS`` and
 ``TINYBLOG_ALLOWED_ATTRIBUTES`` have no effect.
