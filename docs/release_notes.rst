@@ -4,6 +4,8 @@ Release Notes
 0.2.1 in progress
 =================
 
+* Figure out how to include all the Disqus JavaScript if
+  TINYBLOG_DISQUS_SHORTNAME is set.
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
