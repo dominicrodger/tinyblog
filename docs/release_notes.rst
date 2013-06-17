@@ -15,7 +15,7 @@ Done
 ----
 
 * RSS feeds now contain bleached post content (with this release, all
-  places where HTMl is output are now passed through bleach).
+  places where HTML is output are now passed through bleach).
 
 0.2.0
 =====
