@@ -4,8 +4,11 @@
 <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
 <p>{{ post.teaser_html|safe|striptags }}</p>
 <p class="note" style="margin-top: 1em;">Published at {{ post.created|date:"f a" }}.
+{% tinyblog_disqus_shortname as disqus %}
+{% if disqus %}
 <a href="{{ post.get_absolute_url }}#disqus_thread" data-disqus-identifier="blogpost_{{ post.pk }}">Comments</a>
 |
+{% endif %}
 <a href="{{ post.get_absolute_url }}">Read more &raquo;</a>
 </p>
 </div>
