@@ -27,6 +27,13 @@ Used in the RSS feed to provide the feed description.
 Used in the RSS feed to provide a link to the post author's website
 (not widely used by RSS readers).
 
+``TINYBLOG_DISQUS_SHORTNAME``
+-----------------------------
+
+Should be set to the Disqus shortname for the site, if any. Without
+this setting blogs will not use the Disqus integration, so comments on
+blog posts will not be supported.
+
 ``TINYBLOG_SITE_NAME``
 ----------------------
 
