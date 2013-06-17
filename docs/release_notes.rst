@@ -9,13 +9,14 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
-* Test generated RSS is valid with bad HTML, using feedparser.
 
 Done
 ----
 
 * RSS feeds now contain bleached post content (with this release, all
   places where HTML is output are now passed through bleach).
+* Add tests to ensure generated RSS is valid with bad HTML, using
+  feedparser.
 
 0.2.0
 =====

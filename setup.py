@@ -23,6 +23,7 @@ setup(
     tests_require=[
         'django-setuptest==0.1.3',
         'factory_boy==1.3.0',
+        'feedparser==5.1.3',
         'mock==1.0.1',
     ],
     test_suite='setuptest.setuptest.SetupTestSuite',
