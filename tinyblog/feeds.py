@@ -29,7 +29,7 @@ class LatestEntriesFeed(Feed):
         return Post.published_objects.order_by('-created')[:15]
 
     def item_description(self, item):
-        return item.teaser_html + item.text_html
+        return item.bleached_full_text()
 
     def item_title(self, item):
         return item.title

@@ -8,6 +8,8 @@ class TestFeeds(TestCase):
     def test_feeds_with_entries(self):
         PostFactory.create(
             title='Published',
+            teaser_html='<a href="foo">Hello</a>!',
+            text_html='<span class="western">World</span>.'
         )
         PostFactory.create(
             created=datetime.now() + timedelta(days=1),
@@ -18,3 +20,6 @@ class TestFeeds(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Published')
         self.assertNotContains(response, 'Unpublished')
+        self.assertContains(response, "href")
+        self.assertNotContains(response, "class")
+        self.assertNotContains(response, "span")
