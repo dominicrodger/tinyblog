@@ -5,7 +5,7 @@ Release Notes
 =================
 
 * Figure out how to include all the Disqus JavaScript if
-  TINYBLOG_DISQUS_SHORTNAME is set.
+  ``TINYBLOG_DISQUS_SHORTNAME`` is set.
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
