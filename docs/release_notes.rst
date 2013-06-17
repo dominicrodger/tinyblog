@@ -4,6 +4,7 @@ Release Notes
 0.2.1 (not yet started)
 =======================
 
+* Ensure we bleach RSS feeds.
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
