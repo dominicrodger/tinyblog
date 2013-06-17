@@ -1,31 +1,28 @@
 Settings
 ========
 
-tinyblog has 7 relevant settings, 5 of which are required in normal
-use, and 2 of which may be required.
-
-``TINYBLOG_FROM_EMAIL``
------------------------
+``TINYBLOG_FROM_EMAIL`` (required)
+----------------------------------
 
 Used to set the "From:" field when sending emails.
 
-``TINYBLOG_TITLE``
-------------------
+``TINYBLOG_TITLE`` (required)
+-----------------------------
 
 Used in the RSS feed to provide the feed title.
 
-``TINYBLOG_AUTHORNAME``
------------------------
+``TINYBLOG_AUTHORNAME`` (required)
+----------------------------------
 
 Used in the RSS feed for the author name and the copyright notice.
 
-``TINYBLOG_DESCRIPTION``
-------------------------
+``TINYBLOG_DESCRIPTION`` (required)
+-----------------------------------
 
 Used in the RSS feed to provide the feed description.
 
-``TINYBLOG_AUTHORLINK``
------------------------
+``TINYBLOG_AUTHORLINK`` (required)
+----------------------------------
 
 Used in the RSS feed to provide a link to the post author's website
 (not widely used by RSS readers).
