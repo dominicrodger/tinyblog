@@ -7,6 +7,7 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 * Find a way to test South migrations with tox.
+* Test generated RSS is valid with bad HTML, using feedparser.
 
 Done
 ----
