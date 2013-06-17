@@ -18,3 +18,7 @@ Once you've installed tinyblog, just add it to your
         ...
         url(r'^blog/', include('tinyblog.urls')),
     )
+
+To integrate tinyblog with your site's templates, override
+``tinyblog/base.html``. tinyblog expects the main content block to be
+called ``contents``.
