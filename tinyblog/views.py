@@ -9,7 +9,8 @@ from django.template.loader import render_to_string
 from django.views.generic import (
     ArchiveIndexView,
     YearArchiveView,
-    MonthArchiveView
+    MonthArchiveView,
+    DetailView
 )
 from tinyblog.forms import EmailSubscriptionForm, EmailSubscriber
 from tinyblog.models import Post
@@ -95,14 +96,15 @@ def subscribe(request):
                                   context_instance=RequestContext(request))
 
 
-def subscribe_thanks(request):
-    subscriber = get_object_or_404(
-        EmailSubscriber,
-        uuid_first=request.session['tinyblog_thanks_uuid']
-    )
-    return render_to_response('tinyblog/subscribe_thanks.html',
-                              {'subscriber': subscriber},
-                              context_instance=RequestContext(request))
+class TinyBlogAcknowledgeSubscriptionView(DetailView):
+    template_name = 'tinyblog/subscribe_thanks.html'
+    context_object_name = 'subscriber'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(
+            EmailSubscriber,
+            uuid_first=self.request.session['tinyblog_thanks_uuid']
+        )
 
 
 def subscribe_confirm(request, uuid):

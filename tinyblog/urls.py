@@ -3,7 +3,8 @@ from tinyblog.feeds import LatestEntriesFeed
 from tinyblog.views import (
     TinyBlogIndexView,
     TinyBlogYearView,
-    TinyBlogMonthView
+    TinyBlogMonthView,
+    TinyBlogAcknowledgeSubscriptionView
 )
 
 urlpatterns = patterns(
@@ -23,7 +24,7 @@ urlpatterns = patterns(
      {}, 'tinyblog_json'),
     (r'^subscribe/$', 'tinyblog.views.subscribe',
      {}, 'tinyblog_subscribe'),
-    (r'^subscribe/thanks/$', 'tinyblog.views.subscribe_thanks',
+    (r'^subscribe/thanks/$', TinyBlogAcknowledgeSubscriptionView.as_view(),
      {}, 'tinyblog_subscribe_thanks'),
     (r'^subscribe/confirm/(?P<uuid>([a-z0-9]+))/$',
      'tinyblog.views.subscribe_confirm',
