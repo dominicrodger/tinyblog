@@ -41,6 +41,8 @@ class TestSubscribeViews(TestCase):
 
         self.assertEqual(response.request['PATH_INFO'],
                          reverse('tinyblog_subscribe_thanks'))
+        self.assertContains(response, "An email is on its way")
+        self.assertContains(response, subscriber.email)
 
         self.assertEqual(len(mail.outbox), 1)
 
