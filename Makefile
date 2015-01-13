@@ -10,9 +10,10 @@ help:
 	@echo "sdist - package"
 
 clean:
-	rm -fr build/
-	rm -fr dist/
-	rm -fr *.egg-info
+	rm -rf build/
+	rm -rf dist/
+	rm -rf *.egg-info/
+	rm -rf *.egg/
 	find . -name '*.pyc' -exec rm -f {} +
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
@@ -31,7 +32,7 @@ coverage:
 	coverage run --source tinyblog setup.py test
 	coverage report -m
 
-release: clean
+release: clean lint testall
 	python setup.py sdist upload
 	python setup.py bdist_wheel upload
 
