@@ -4,8 +4,11 @@ from tinyblog.views import (
     TinyBlogIndexView,
     TinyBlogYearView,
     TinyBlogMonthView,
+)
+from tinyblog.views.subscription import (
     TinyBlogAcknowledgeSubscriptionView
 )
+
 
 urlpatterns = patterns(
     '',
@@ -22,13 +25,14 @@ urlpatterns = patterns(
      {}, 'tinyblog_rss'),
     (r'^json/$', 'tinyblog.views.jsonify',
      {}, 'tinyblog_json'),
-    (r'^subscribe/$', 'tinyblog.views.subscribe',
+    (r'^subscribe/$', 'tinyblog.views.subscription.subscribe',
      {}, 'tinyblog_subscribe'),
     (r'^subscribe/thanks/$', TinyBlogAcknowledgeSubscriptionView.as_view(),
      {}, 'tinyblog_subscribe_thanks'),
     (r'^subscribe/confirm/(?P<uuid>([a-z0-9]+))/$',
-     'tinyblog.views.subscribe_confirm',
+     'tinyblog.views.subscription.subscribe_confirm',
      {}, 'tinyblog_subscribe_confirm'),
-    (r'^unsubscribe/(?P<uuid>([a-z0-9]+))/$', 'tinyblog.views.unsubscribe',
+    (r'^unsubscribe/(?P<uuid>([a-z0-9]+))/$',
+     'tinyblog.views.subscription.unsubscribe',
      {}, 'tinyblog_unsubscribe'),
 )
