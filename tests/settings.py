@@ -41,8 +41,8 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 
-TINYBLOG_FROM_EMAIL='from@example.com'
-TINYBLOG_TITLE='My Blog'
-TINYBLOG_AUTHORNAME='Bugs Bunny'
-TINYBLOG_DESCRIPTION='Foobar'
-TINYBLOG_AUTHORLINK='http://www.example.com'
+TINYBLOG_FROM_EMAIL = 'from@example.com'
+TINYBLOG_TITLE = 'My Blog'
+TINYBLOG_AUTHORNAME = 'Bugs Bunny'
+TINYBLOG_DESCRIPTION = 'Foobar'
+TINYBLOG_AUTHORLINK = 'http://www.example.com'
