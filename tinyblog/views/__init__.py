@@ -1,26 +1,31 @@
 from datetime import datetime
 from django.http import Http404
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404
 from django.views.generic import (
     ArchiveIndexView,
     YearArchiveView,
     MonthArchiveView,
+    DetailView,
 )
 from tinyblog.models import Post
 
 
-def post(request, year, month, slug):
-    post = get_object_or_404(Post, created__year=year, created__month=month,
-                             slug=slug)
+class TinyBlogPostView(DetailView):
+    template_name = 'tinyblog/post.html'
 
-    if post.created > datetime.now():
-        if not request.user.is_staff:
-            raise Http404
+    def get_object(self):
+        post = get_object_or_404(
+            Post,
+            created__year=int(self.kwargs['year']),
+            created__month=int(self.kwargs['month']),
+            slug=self.kwargs['slug']
+        )
 
-    return render_to_response('tinyblog/post.html',
-                              {'post': post},
-                              context_instance=RequestContext(request))
+        if post.created > datetime.now():
+            if not self.request.user.is_staff:
+                raise Http404
+        return post
+post = TinyBlogPostView.as_view()
 
 
 class TinyBlogIndexView(ArchiveIndexView):
