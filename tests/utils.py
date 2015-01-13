@@ -35,7 +35,7 @@ class OutputRedirector(object):
         sys.stderr = self.original_stderr
 
 
-def test_command(command, *args):
+def run_command_for_test(command, *args):
     content = StringIO()
 
     with OutputRedirector(content):

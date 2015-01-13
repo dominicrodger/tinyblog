@@ -5,12 +5,12 @@ from django.test import TestCase
 from .utils import (
     PostFactory,
     EmailSubscriberFactory,
-    test_command
+    run_command_for_test
 )
 
 
 def mail_subscribers():
-    return test_command("mail_subscribers")
+    return run_command_for_test("mail_subscribers")
 
 
 class TestMailSubscribers(TestCase):

@@ -36,6 +36,8 @@ ROOT_URLCONF = 'test_urls'
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
 )
+SECRET_KEY = 'thisbagismadefromrecycledmaterial'
+ALLOWED_HOSTS = ['*']
 
 SITE_ID = 1
 

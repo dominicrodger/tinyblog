@@ -5,7 +5,7 @@ from django.test import TestCase
 from mock import Mock, patch
 from django.utils.unittest import skipIf
 from tinyblog.models import Post
-from .utils import test_command, PostFactory
+from .utils import run_command_for_test, PostFactory
 
 
 def is_before_django_1_5():
@@ -28,11 +28,11 @@ class FakeResponse(object):
 class TestImportTinyblog(TestCase):
     def test_without_args(self):
         with self.assertRaises(CommandError):
-            test_command("import_tinyblog")
+            run_command_for_test("import_tinyblog")
 
     def test_with_invalid_url(self):
         with self.assertRaises(CommandError):
-            test_command("import_tinyblog", "foobar")
+            run_command_for_test("import_tinyblog", "foobar")
 
     def test_with_url_that_returns_failure(self):
         def get_fake_response(k):
@@ -40,7 +40,7 @@ class TestImportTinyblog(TestCase):
 
         with patch('requests.get', Mock(side_effect=get_fake_response)):
             with self.assertRaises(CommandError):
-                test_command("import_tinyblog", "http://test/")
+                run_command_for_test("import_tinyblog", "http://test/")
 
     def test_with_url_that_returns_json_not_posts(self):
         def get_fake_response(k):
@@ -48,7 +48,7 @@ class TestImportTinyblog(TestCase):
 
         with patch('requests.get', Mock(side_effect=get_fake_response)):
             with self.assertRaises(CommandError):
-                test_command("import_tinyblog", "http://test/")
+                run_command_for_test("import_tinyblog", "http://test/")
 
     def test_with_url_that_returns_non_json(self):
         def get_fake_response(k):
@@ -56,7 +56,7 @@ class TestImportTinyblog(TestCase):
 
         with patch('requests.get', Mock(side_effect=get_fake_response)):
             with self.assertRaises(CommandError):
-                test_command("import_tinyblog", "http://test/")
+                run_command_for_test("import_tinyblog", "http://test/")
 
     def test_with_object_that_does_exist(self):
         PostFactory.create(title='Sample Post', slug='foobar')
@@ -66,7 +66,7 @@ class TestImportTinyblog(TestCase):
             return FakeResponse(200, data)
 
         with patch('requests.get', Mock(side_effect=get_fake_response)):
-            result = test_command("import_tinyblog", "http://test/")
+            result = run_command_for_test("import_tinyblog", "http://test/")
             self.assertEqual(result, ("Processing \"Sample Post\"...\n"
                                       "Already had existing object with "
                                       "the slug \"foobar\"."))
@@ -81,6 +81,6 @@ class TestImportTinyblog(TestCase):
         Post.objects.all().delete()
 
         with patch('requests.get', Mock(side_effect=get_fake_response)):
-            result = test_command("import_tinyblog", "http://test/")
+            result = run_command_for_test("import_tinyblog", "http://test/")
             self.assertEqual(result, ("Processing \"Sample Post\"...\n"
                                       "Saved new object."))
