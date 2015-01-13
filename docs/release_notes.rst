@@ -20,6 +20,8 @@ Release Notes
   places where HTML is output are now passed through bleach).
 * Add tests to ensure generated RSS is valid with bad HTML, using
   feedparser.
+* Removed South migrations - they aren't currently used (we only have
+  an initial version), and this will smooth the way to Django 1.7.
 
 0.2.0
 =====
