@@ -15,7 +15,7 @@ urlpatterns = patterns(
      {}, 'tinyblog_post'),
     (r'^rss/$', LatestEntriesFeed(),
      {}, 'tinyblog_rss'),
-    (r'^json/$', 'tinyblog.views.jsonify',
+    (r'^json/$', 'tinyblog.views.json.serialized_posts',
      {}, 'tinyblog_json'),
     (r'^subscribe/$', 'tinyblog.views.subscription.subscribe',
      {}, 'tinyblog_subscribe'),

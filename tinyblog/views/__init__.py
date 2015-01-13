@@ -1,6 +1,5 @@
 from datetime import datetime
-from django.core import serializers
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.generic import (
@@ -48,8 +47,3 @@ class TinyBlogMonthView(MonthArchiveView):
     def get_queryset(self):
         return Post.published_objects.all()
 month_view = TinyBlogMonthView.as_view()
-
-
-def jsonify(request):
-    data = serializers.serialize("json", Post.published_objects.all())
-    return HttpResponse(data)
