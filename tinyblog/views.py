@@ -69,7 +69,7 @@ def subscribe(request):
 
         if form.is_valid():
             model = form.save()
-            request.session['tinyblog_thanks_uuid'] = model.uuid_first
+            request.session['tinyblog_thanks_uuid'] = str(model.uuid_first)
 
             site = get_site_name()
 
