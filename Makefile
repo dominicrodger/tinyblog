@@ -19,8 +19,7 @@ clean:
 	find . -name '*~' -exec rm -f {} +
 
 lint:
-	flake8 tinyblog
-	flake8 tests
+	flake8 tinyblog tests
 
 test:
 	python setup.py test
