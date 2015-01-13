@@ -31,7 +31,7 @@ INSTALLED_APPS = (
     'tinyblog',
 )
 
-ROOT_URLCONF = 'test_urls'
+ROOT_URLCONF = 'tests.urls'
 
 PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.MD5PasswordHasher',
