@@ -38,7 +38,7 @@ setup(
     tests_require=[
         "pytest==2.6.4",
         "pytest-cov==1.7.0",
-        "pytest-django==2.6.2",
+        "pytest-django==2.6.1",
         'factory_boy==1.3.0',
         'feedparser==5.1.3',
         'mock==1.0.1',
