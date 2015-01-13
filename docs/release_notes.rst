@@ -1,18 +1,21 @@
 Release Notes
 *************
 
-0.2.1 in progress
-=================
+0.3.1 (planned)
+===============
 
 * Figure out how to include all the Disqus JavaScript if
   ``TINYBLOG_DISQUS_SHORTNAME`` is set.
 * Improve pagination.
 * Add support for images.
-* Find a way to test South migrations with tox.
 
-Done
-----
+0.3.0
+=====
 
+* Drop Python 2.6 support (it may still work, but is no longer
+  supported).
+* Switch test format to py.test.
+* Add support for Django 1.6.
 * RSS feeds now contain bleached post content (with this release, all
   places where HTML is output are now passed through bleach).
 * Add tests to ensure generated RSS is valid with bad HTML, using
