@@ -1,22 +1,14 @@
 from django.conf.urls import patterns
 from tinyblog.feeds import LatestEntriesFeed
-from tinyblog.views import (
-    TinyBlogIndexView,
-    TinyBlogYearView,
-    TinyBlogMonthView,
-)
-from tinyblog.views.subscription import (
-    TinyBlogAcknowledgeSubscriptionView
-)
 
 
 urlpatterns = patterns(
     '',
-    (r'^$', TinyBlogIndexView.as_view(),
+    (r'^$', 'tinyblog.views.index_view',
      {}, 'tinyblog_index'),
-    (r'^(?P<year>\d{4})/$', TinyBlogYearView.as_view(),
+    (r'^(?P<year>\d{4})/$', 'tinyblog.views.year_view',
      {}, 'tinyblog_year'),
-    (r'^(?P<year>\d{4})/(?P<month>\d{2})/$', TinyBlogMonthView.as_view(),
+    (r'^(?P<year>\d{4})/(?P<month>\d{2})/$', 'tinyblog.views.month_view',
      {}, 'tinyblog_month'),
     (r'^(?P<year>\d{4})/(?P<month>\d{2})/(?P<slug>([a-z0-9-]+))/$',
      'tinyblog.views.post',
@@ -27,7 +19,8 @@ urlpatterns = patterns(
      {}, 'tinyblog_json'),
     (r'^subscribe/$', 'tinyblog.views.subscription.subscribe',
      {}, 'tinyblog_subscribe'),
-    (r'^subscribe/thanks/$', TinyBlogAcknowledgeSubscriptionView.as_view(),
+    (r'^subscribe/thanks/$',
+     'tinyblog.views.subscription.acknowledge_subscription',
      {}, 'tinyblog_subscribe_thanks'),
     (r'^subscribe/confirm/(?P<uuid>([a-z0-9]+))/$',
      'tinyblog.views.subscription.subscribe_confirm',

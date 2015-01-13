@@ -29,6 +29,7 @@ class TinyBlogIndexView(ArchiveIndexView):
 
     def get_queryset(self):
         return Post.published_objects.all()
+index_view = TinyBlogIndexView.as_view()
 
 
 class TinyBlogYearView(YearArchiveView):
@@ -37,6 +38,7 @@ class TinyBlogYearView(YearArchiveView):
 
     def get_queryset(self):
         return Post.published_objects.all()
+year_view = TinyBlogYearView.as_view()
 
 
 class TinyBlogMonthView(MonthArchiveView):
@@ -45,6 +47,7 @@ class TinyBlogMonthView(MonthArchiveView):
 
     def get_queryset(self):
         return Post.published_objects.all()
+month_view = TinyBlogMonthView.as_view()
 
 
 def jsonify(request):

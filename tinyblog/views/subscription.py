@@ -56,6 +56,7 @@ class TinyBlogAcknowledgeSubscriptionView(DetailView):
             EmailSubscriber,
             uuid_first=self.request.session['tinyblog_thanks_uuid']
         )
+acknowledge_subscription = TinyBlogAcknowledgeSubscriptionView.as_view()
 
 
 def subscribe_confirm(request, uuid):
