@@ -15,13 +15,14 @@ Release Notes
 * Drop Python 2.6 support (it may still work, but is no longer
   supported).
 * Switch test format to py.test.
-* Add support for Django 1.6.
+* Add support for Django 1.6 and Django 1.7.
 * RSS feeds now contain bleached post content (with this release, all
   places where HTML is output are now passed through bleach).
 * Add tests to ensure generated RSS is valid with bad HTML, using
   feedparser.
 * Removed South migrations - they aren't currently used (we only have
-  an initial version), and this will smooth the way to Django 1.7.
+  an initial version), and this will smooth the way to switching to
+  using Django 1.7's new migrations feature.
 
 0.2.0
 =====
