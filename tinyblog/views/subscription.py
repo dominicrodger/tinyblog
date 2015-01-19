@@ -1,12 +1,10 @@
-from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.template.loader import render_to_string
 from django.views.generic import DetailView
 from tinyblog.forms import EmailSubscriptionForm, EmailSubscriber
-from tinyblog.utils import get_from_email, get_site_name
+from tinyblog.utils.mail import send_subscription_confirmation
 
 
 def subscribe(request):
@@ -22,24 +20,7 @@ def subscribe(request):
             model = form.save()
             request.session['tinyblog_thanks_uuid'] = str(model.uuid_first)
 
-            site = get_site_name()
-
-            subject = 'Thanks for subscribing to {0}'.format(site)
-
-            text_template = 'tinyblog/emails/confirm_subscription.txt'
-            text_content = render_to_string(text_template,
-                                            {'user': model, 'site': site})
-
-            html_template = 'tinyblog/emails/confirm_subscription.html'
-            html_content = render_to_string(html_template,
-                                            {'user': model, 'site': site})
-
-            to = model.email
-            msg = EmailMultiAlternatives(subject, text_content,
-                                         get_from_email(), [to, ])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
-
+            send_subscription_confirmation(model)
             return HttpResponseRedirect(reverse('tinyblog_subscribe_thanks'))
 
         return render_to_response('tinyblog/subscribe.html',
