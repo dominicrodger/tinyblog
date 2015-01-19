@@ -31,7 +31,7 @@ setup(
     install_requires=[
         'Django>=1.4',
         'requests==1.2.0',
-        'django-tinymce==1.5.1b4',
+        'django-tinymce==1.5.3',
         'django-uuidfield==0.4.0',
         'bleach==1.2.2',
     ],
