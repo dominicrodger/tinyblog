@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from tinyblog.models import EmailSubscriber
 
-from .utils import EmailSubscriberFactory
+from .utils import EmailSubscriberFactory, is_before_django_1_5
 
 
 class TestSubscribeViews(TestCase):
@@ -133,11 +133,18 @@ class TestSubscribeViews(TestCase):
             {'email': 'notanemail'}
         )
         self.assertEqual(response.status_code, 200)
+
+        if is_before_django_1_5():
+            email_string = 'e-mail'
+        else:
+            email_string = 'email'
+
         self.assertEqual(
             response.context_data['form'].errors['email'],
-            [u'Enter a valid email address.',
+            [u'Enter a valid %s address.' % email_string,
              u'notanemail is not currently subscribed.']
         )
+
         subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
 
         self.assertFalse(subscriber.unsubscribed)
