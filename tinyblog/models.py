@@ -132,8 +132,8 @@ class Post(models.Model):
             mail_queue.append(self.generate_mail(subscriber, domain))
 
         connection = mail.get_connection()
-        connection.open()
 
+        connection.open()
         connection.send_messages(mail_queue)
         connection.close()
 
