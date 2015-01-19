@@ -1,8 +1,8 @@
 Release Notes
 *************
 
-0.3.1 (planned)
-===============
+0.next (planned)
+================
 
 * Figure out how to include all the Disqus JavaScript if
   ``TINYBLOG_DISQUS_SHORTNAME`` is set.
