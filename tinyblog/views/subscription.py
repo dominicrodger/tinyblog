@@ -12,10 +12,12 @@ class SubscriptionView(FormView):
     template_name = 'tinyblog/subscribe.html'
 
     def form_valid(self, form):
-        model = form.save()
-        self.request.session['tinyblog_thanks_uuid'] = str(model.uuid_first)
+        subscriber = form.save()
+        self.request.session['tinyblog_thanks_uuid'] = str(
+            subscriber.uuid_first
+        )
 
-        send_subscription_confirmation(model)
+        send_subscription_confirmation(subscriber)
         return HttpResponseRedirect(reverse('tinyblog_subscribe_thanks'))
 subscribe = SubscriptionView.as_view()
 
