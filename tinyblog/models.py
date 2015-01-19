@@ -45,8 +45,7 @@ class EmailSubscriber(models.Model):
         return u'http://{0}{1}'.format(get_site_domain(), relative_url)
 
     def unsubscribe_url(self):
-        relative_url = reverse('tinyblog_unsubscribe',
-                               args=[self.uuid_second, ])
+        relative_url = reverse('tinyblog_unsubscribe')
         return u'http://{0}{1}'.format(get_site_domain(), relative_url)
 
 

@@ -15,6 +15,7 @@ Release Notes
 * Help prevent inadvertent unsubscriptions from link
   pre-fetchers/forwarded emails by requiring an email address be
   entered to complete cancellation of a subscription.
+* Remove the need for UUIDs in the unsubscription code.
 
 0.3.0
 =====

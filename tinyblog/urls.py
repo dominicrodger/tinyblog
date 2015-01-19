@@ -28,7 +28,7 @@ urlpatterns = patterns(
     (r'^unsubscribe/thanks/$',
      'tinyblog.views.subscription.unsubscribe_thanks',
      {}, 'tinyblog_unsubscribe_thanks'),
-    (r'^unsubscribe/(?P<uuid>([a-z0-9]+))/$',
+    (r'^unsubscribe/$',
      'tinyblog.views.subscription.unsubscribe',
      {}, 'tinyblog_unsubscribe'),
 )
