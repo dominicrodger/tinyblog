@@ -22,6 +22,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.messages',
@@ -46,3 +47,5 @@ TINYBLOG_TITLE = 'My Blog'
 TINYBLOG_AUTHORNAME = 'Bugs Bunny'
 TINYBLOG_DESCRIPTION = 'Foobar'
 TINYBLOG_AUTHORLINK = 'http://www.example.com'
+STATIC_URL = 'http://example.com/static/'
+STATIC_ROOT = '/'
