@@ -1,4 +1,5 @@
 from datetime import datetime
+import django
 from django.core.management import call_command
 import factory
 from StringIO import StringIO
@@ -43,3 +44,12 @@ def run_command_for_test(command, *args):
 
     content.seek(0)
     return content.read().strip()
+
+
+def is_before_django_1_5():
+    version = django.VERSION
+
+    if version[0] > 1:
+        return False
+
+    return version[1] < 5

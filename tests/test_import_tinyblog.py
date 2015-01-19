@@ -1,20 +1,10 @@
-import django
 from django.core import serializers
 from django.core.management.base import CommandError
 from django.test import TestCase
 from mock import Mock, patch
 from django.utils.unittest import skipIf
 from tinyblog.models import Post
-from .utils import run_command_for_test, PostFactory
-
-
-def is_before_django_1_5():
-    version = django.VERSION
-
-    if version[0] > 1:
-        return False
-
-    return version[1] < 5
+from .utils import run_command_for_test, PostFactory, is_before_django_1_5
 
 
 class FakeResponse(object):
