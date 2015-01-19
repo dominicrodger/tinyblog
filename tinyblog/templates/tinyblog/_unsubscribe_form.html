@@ -1,0 +1,19 @@
+<h1>Confirm Unsubscription</h1>
+
+{% load url from future %}
+
+<p>
+  Please enter your email address to confirm your
+  unsubscription:
+</p>
+
+<form method="post" action=".">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Unsubscribe" />
+</form>
+
+<p>
+  Alternatively, you can return to <a href="{% url 'tinyblog_index'
+  %}">reading the blog</a>.
+</p>

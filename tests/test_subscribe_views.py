@@ -65,7 +65,7 @@ class TestSubscribeViews(TestCase):
         subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
         self.assertTrue(subscriber.confirmed)
 
-    def test_unsubscribe(self):
+    def test_unsubscribe_get_form(self):
         subscriber = EmailSubscriberFactory.create(confirmed=True)
         self.assertFalse(subscriber.unsubscribed)
 
@@ -74,8 +74,72 @@ class TestSubscribeViews(TestCase):
 
         response = self.client.get(subscriber.unsubscribe_url())
         self.assertEqual(response.status_code, 200)
+        self.assertTrue('form' in response.context_data)
+        subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
+        self.assertFalse(subscriber.unsubscribed)
+
+        self.assertEqual(EmailSubscriber.current_objects.count(),
+                         1)
+
+    def test_unsubscribe_submit_form(self):
+        subscriber = EmailSubscriberFactory.create(confirmed=True)
+        self.assertFalse(subscriber.unsubscribed)
+
+        self.assertEqual(EmailSubscriber.current_objects.count(),
+                         1)
+
+        response = self.client.post(
+            subscriber.unsubscribe_url(),
+            {'email': subscriber.email}
+        )
+        self.assertEqual(response.status_code, 302)
         subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
         self.assertTrue(subscriber.unsubscribed)
 
         self.assertEqual(EmailSubscriber.current_objects.count(),
                          0)
+
+    def test_unsubscribe_submit_form_non_existent_email(self):
+        subscriber = EmailSubscriberFactory.create(confirmed=True)
+        self.assertFalse(subscriber.unsubscribed)
+
+        self.assertEqual(EmailSubscriber.current_objects.count(),
+                         1)
+
+        response = self.client.post(
+            subscriber.unsubscribe_url(),
+            {'email': 'notthere@example.com'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context_data['form'].errors['email'],
+            [u'notthere@example.com is not currently subscribed.']
+        )
+        subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
+
+        self.assertFalse(subscriber.unsubscribed)
+        self.assertEqual(EmailSubscriber.current_objects.count(),
+                         1)
+
+    def test_unsubscribe_submit_form_bad_email_address(self):
+        subscriber = EmailSubscriberFactory.create(confirmed=True)
+        self.assertFalse(subscriber.unsubscribed)
+
+        self.assertEqual(EmailSubscriber.current_objects.count(),
+                         1)
+
+        response = self.client.post(
+            subscriber.unsubscribe_url(),
+            {'email': 'notanemail'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context_data['form'].errors['email'],
+            [u'Enter a valid email address.',
+             u'notanemail is not currently subscribed.']
+        )
+        subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
+
+        self.assertFalse(subscriber.unsubscribed)
+        self.assertEqual(EmailSubscriber.current_objects.count(),
+                         1)

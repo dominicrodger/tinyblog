@@ -9,6 +9,13 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.4.0
+=====
+
+* Help prevent inadvertent unsubscriptions from link
+  pre-fetchers/forwarded emails by requiring an email address be
+  entered to complete cancellation of a subscription.
+
 0.3.0
 =====
 

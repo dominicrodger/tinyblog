@@ -1,9 +1,12 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.views.generic import DetailView, FormView
-from tinyblog.forms import EmailSubscriptionForm
+from django.views.generic import DetailView, FormView, TemplateView
+from tinyblog.forms import (
+    EmailSubscriptionForm,
+    UnsubscriptionConfirmationForm
+)
 from tinyblog.models import EmailSubscriber
 from tinyblog.utils.mail import send_subscription_confirmation
 
@@ -45,11 +48,22 @@ def subscribe_confirm(request, uuid):
                               context_instance=RequestContext(request))
 
 
-def unsubscribe(request, uuid):
-    subscriber = get_object_or_404(EmailSubscriber, uuid_second=uuid)
-    subscriber.unsubscribed = True
-    subscriber.save()
+class UnsubscriptionView(FormView):
+    template_name = 'tinyblog/unsubscribe_form.html'
+    form_class = UnsubscriptionConfirmationForm
+    success_url = reverse_lazy('tinyblog_unsubscribe_thanks')
 
-    return render_to_response('tinyblog/unsubscribe.html',
-                              {'subscriber': subscriber},
-                              context_instance=RequestContext(request))
+    def form_valid(self, form):
+        subscriber = get_object_or_404(
+            EmailSubscriber,
+            email=form.cleaned_data['email']
+        )
+        subscriber.unsubscribed = True
+        subscriber.save()
+        return super(UnsubscriptionView, self).form_valid(form)
+unsubscribe = UnsubscriptionView.as_view()
+
+
+class UnsubscriptionThanksView(TemplateView):
+    template_name = 'tinyblog/unsubscribe.html'
+unsubscribe_thanks = UnsubscriptionThanksView.as_view()
