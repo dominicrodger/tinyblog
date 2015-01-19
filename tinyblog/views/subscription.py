@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.views.generic import DetailView, FormView
-from tinyblog.forms import EmailSubscriptionForm, EmailSubscriber
+from tinyblog.forms import EmailSubscriptionForm
+from tinyblog.models import EmailSubscriber
 from tinyblog.utils.mail import send_subscription_confirmation
 
 
