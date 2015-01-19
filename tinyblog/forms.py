@@ -1,8 +1,8 @@
-from django.forms import ModelForm
+from django import forms
 from tinyblog.models import EmailSubscriber
 
 
-class EmailSubscriptionForm(ModelForm):
+class EmailSubscriptionForm(forms.ModelForm):
     class Meta:
         model = EmailSubscriber
         exclude = ('confirmed', 'unsubscribed', )
