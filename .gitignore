@@ -1,6 +1,7 @@
 *.pyc
 *.egg-info/
 *.egg
+.eggs/
 *.tox/
 pep8.txt
 coverage.xml
