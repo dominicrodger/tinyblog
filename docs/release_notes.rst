@@ -15,6 +15,7 @@ Release Notes
 * Fix a bug in the unsubscribe page with the link for going back to
   the blog (the ``url`` tag was split over two lines, so the link
   didn't render correctly).
+* Add Django 1.8 support.
 
 0.4.0
 =====
