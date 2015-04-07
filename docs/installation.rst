@@ -1,8 +1,9 @@
 Installing tinyblog
 ===================
 
-tinyblog supports Python 2.7, and Django 1.4, 1.5 and 1.6. Python 3
-support is blocked waiting for django-uuidfield to support Python 3.
+tinyblog supports Python 2.7, and Django 1.4, 1.5, 1.6 and
+1.7. Python 3 support is blocked waiting for django-uuidfield to
+support Python 3.
 
 tinyblog is available on PyPI, so can be installed into a virtualenv
 with pip like this::
