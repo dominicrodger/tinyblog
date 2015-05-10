@@ -9,6 +9,11 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.4.3
+=====
+
+* Ensure Disqus works over HTTPS, by using protocol-relative URLs
+
 0.4.2
 =====
 
