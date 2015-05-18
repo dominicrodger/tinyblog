@@ -25,5 +25,6 @@ class EmailSubscriberAdmin(admin.ModelAdmin):
     list_filter = ('confirmed', 'unsubscribed', )
     list_display = ('email', 'confirmed', 'subscribed', 'unsubscribed', )
     readonly_fields = ('uuid_first', 'uuid_second', )
+    search_fields = ('email', )
 
 admin.site.register(EmailSubscriber, EmailSubscriberAdmin)
