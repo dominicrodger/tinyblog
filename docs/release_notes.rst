@@ -9,10 +9,15 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.4.4
+=====
+
+* Allow searching on email address in the admin.
+
 0.4.3
 =====
 
-* Ensure Disqus works over HTTPS, by using protocol-relative URLs
+* Ensure Disqus works over HTTPS, by using protocol-relative URLs.
 
 0.4.2
 =====
