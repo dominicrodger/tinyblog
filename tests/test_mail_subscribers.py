@@ -46,7 +46,7 @@ class TestMailSubscribers(TestCase):
             confirmed=True,
         )
 
-        subscriber1_again = EmailSubscriberFactory.create(
+        EmailSubscriberFactory.create(
             email='to1@example.com',
             confirmed=True,
         )
