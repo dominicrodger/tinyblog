@@ -153,7 +153,7 @@ class Post(models.Model):
         connection.send_messages(mail_queue)
         connection.close()
 
-        return len(seen_subscribers)
+        return seen_subscribers
 
     @classmethod
     def get_next_post_to_email(cls):

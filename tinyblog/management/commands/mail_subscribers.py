@@ -13,11 +13,17 @@ class Command(NoArgsCommand):
             print "There are no posts to publish."
             return
 
-        num_subscribers = post.mail_subscribers()
+        seen_subscribers = post.mail_subscribers()
 
         post.emailed = True
         post.save()
 
-        print ("'{0}' e-mailed to {1} "
-               "subscriber(s).".format(post.title,
-                                       num_subscribers))
+        if not seen_subscribers:
+            print ("'{0}' e-mailed to 0 subscriber(s).".format(
+                post.title
+            ))
+        else:
+            print ("'{0}' e-mailed to {1} "
+                   "subscriber(s):".format(post.title,
+                                           len(seen_subscribers)))
+            print ('\n'.join(seen_subscribers))

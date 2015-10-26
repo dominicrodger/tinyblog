@@ -68,8 +68,10 @@ class TestMailSubscribers(TestCase):
         )
 
         printed = mail_subscribers()
-        self.assertEqual(printed,
-                         "'Mail Everyone' e-mailed to 2 subscriber(s).")
+        self.assertEqual(printed.splitlines()[0],
+                         "'Mail Everyone' e-mailed to 2 subscriber(s):")
+        self.assertEqual('; '.join(sorted(printed.splitlines()[1:])),
+                         "to1@example.com; to2@example.com")
 
         self.assertEqual(len(mail.outbox), 2)
 
