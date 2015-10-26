@@ -138,8 +138,14 @@ class Post(models.Model):
 
         domain = get_site_domain()
 
+        seen_subscribers = set()
+
         for subscriber in subscribers:
+            if subscriber.email in seen_subscribers:
+                continue
+
             mail_queue.append(self.generate_mail(subscriber, domain))
+            seen_subscribers.add(subscriber.email)
 
         connection = mail.get_connection()
 
@@ -147,7 +153,7 @@ class Post(models.Model):
         connection.send_messages(mail_queue)
         connection.close()
 
-        return len(subscribers)
+        return len(seen_subscribers)
 
     @classmethod
     def get_next_post_to_email(cls):

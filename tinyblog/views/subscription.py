@@ -54,12 +54,12 @@ class UnsubscriptionView(FormView):
     success_url = reverse_lazy('tinyblog_unsubscribe_thanks')
 
     def form_valid(self, form):
-        subscriber = get_object_or_404(
-            EmailSubscriber,
-            email=form.cleaned_data['email']
-        )
-        subscriber.unsubscribed = True
-        subscriber.save()
+        EmailSubscriber.objects.filter(
+            email=form.cleaned_data['email'],
+            confirmed=True,
+            unsubscribed=False
+        ).update(unsubscribed=True)
+
         return super(UnsubscriptionView, self).form_valid(form)
 unsubscribe = UnsubscriptionView.as_view()
 

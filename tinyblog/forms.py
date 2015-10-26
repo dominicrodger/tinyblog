@@ -10,9 +10,13 @@ class EmailSubscriptionForm(forms.ModelForm):
 
 
 def validate_subscribed_address(value):
-    try:
-        EmailSubscriber.objects.get(email=value)
-    except EmailSubscriber.DoesNotExist:
+    count = EmailSubscriber.objects.filter(
+        email=value,
+        confirmed=True,
+        unsubscribed=False
+    ).count()
+
+    if count == 0:
         raise ValidationError(
             u'%s is not currently subscribed.' % value
         )

@@ -83,10 +83,11 @@ class TestSubscribeViews(TestCase):
 
     def test_unsubscribe_submit_form(self):
         subscriber = EmailSubscriberFactory.create(confirmed=True)
+        EmailSubscriberFactory.create(confirmed=True)
         self.assertFalse(subscriber.unsubscribed)
 
         self.assertEqual(EmailSubscriber.current_objects.count(),
-                         1)
+                         2)
 
         response = self.client.post(
             subscriber.unsubscribe_url(),

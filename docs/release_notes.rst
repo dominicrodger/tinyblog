@@ -9,6 +9,12 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.4.5
+=====
+
+* Fix for people subscribing multiple times - let's ensure people
+  only get a single email, and that unsubscribing works.
+
 0.4.4
 =====
 
