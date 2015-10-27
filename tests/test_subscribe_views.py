@@ -11,6 +11,7 @@ class TestSubscribeViews(TestCase):
         url = reverse('tinyblog_subscribe')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, reverse('tinyblog_subscribe'))
 
     def test_subscribe_bad_post(self):
         self.assertEqual(EmailSubscriber.objects.all().count(),
@@ -61,6 +62,7 @@ class TestSubscribeViews(TestCase):
         url = reverse('tinyblog_invite')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, reverse('tinyblog_invite'))
 
     def test_invite_bad_post(self):
         self.assertEqual(EmailSubscriber.objects.all().count(),

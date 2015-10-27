@@ -9,6 +9,12 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.5.1
+=====
+
+* Ensure the invitation form for inviting subscribers submits to a
+  different endpoint to the regular subscription view.
+
 0.5.0
 =====
 

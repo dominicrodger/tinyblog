@@ -16,9 +16,15 @@ from tinyblog.utils.mail import (
 class SubscriptionView(FormView):
     form_class = EmailSubscriptionForm
     template_name = 'tinyblog/subscribe.html'
+    submit_url = reverse_lazy('tinyblog_subscribe')
 
     def notify_subscription(self, subscriber):
         send_subscription_confirmation(subscriber)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(SubscriptionView, self).get_context_data(**kwargs)
+        ctx['submit_url'] = self.submit_url
+        return ctx
 
     def form_valid(self, form):
         subscriber = form.save()
@@ -33,6 +39,8 @@ subscribe = SubscriptionView.as_view()
 
 
 class InviteSubscriptionView(SubscriptionView):
+    submit_url = reverse_lazy('tinyblog_invite')
+
     def notify_subscription(self, subscriber):
         send_subscription_invitation(subscriber)
 invite = InviteSubscriptionView.as_view()
