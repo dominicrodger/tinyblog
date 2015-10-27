@@ -13,13 +13,16 @@ def send_subscription_confirmation(user):
 
     subject = 'Thanks for subscribing to {0}'.format(site)
 
+    ctx = {
+        'user': user,
+        'site': site
+    }
+
     text_template = 'tinyblog/emails/confirm_subscription.txt'
-    text_content = render_to_string(text_template,
-                                    {'user': user, 'site': site})
+    text_content = render_to_string(text_template, ctx)
 
     html_template = 'tinyblog/emails/confirm_subscription.html'
-    html_content = render_to_string(html_template,
-                                    {'user': user, 'site': site})
+    html_content = render_to_string(html_template, ctx)
 
     to = user.email
     msg = EmailMultiAlternatives(subject, text_content,
