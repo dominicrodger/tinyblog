@@ -14,6 +14,8 @@ Release Notes
 
 * Fix for people subscribing multiple times - let's ensure people
   only get a single email, and that unsubscribing works.
+* Print out each email address that had emails sent when running
+  ``mail_subscribers``.
 
 0.4.4
 =====
