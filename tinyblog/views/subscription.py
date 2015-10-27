@@ -25,7 +25,7 @@ class SubscriptionView(FormView):
 subscribe = SubscriptionView.as_view()
 
 
-class TinyBlogAcknowledgeSubscriptionView(DetailView):
+class AcknowledgeSubscriptionView(DetailView):
     template_name = 'tinyblog/subscribe_thanks.html'
     context_object_name = 'subscriber'
 
@@ -34,7 +34,7 @@ class TinyBlogAcknowledgeSubscriptionView(DetailView):
             EmailSubscriber,
             uuid_first=self.request.session['tinyblog_thanks_uuid']
         )
-acknowledge_subscription = TinyBlogAcknowledgeSubscriptionView.as_view()
+acknowledge_subscription = AcknowledgeSubscriptionView.as_view()
 
 
 class SubscriptionConfirmView(DetailView):
