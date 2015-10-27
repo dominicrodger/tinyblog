@@ -1,5 +1,5 @@
-Thanks for subscribing to {{ site }} - we hope you'll enjoy reading
-the e-mails we send.
+Thanks for subscribing to {{ site }}{% if description %} - {{ description }}{% endif %}
+ - we hope you'll enjoy reading the e-mails we send.
 
 To make sure we only send e-mails people want to read, please confirm
 your subscription at {{ user.confirm_url }}. If you didn't intend to

@@ -25,3 +25,7 @@ def get_site_domain():
         raise ImproperlyConfigured('Please set TINYBLOG_SITE_DOMAIN.')
 
     return settings.TINYBLOG_SITE_DOMAIN
+
+
+def get_site_description():
+    return getattr(settings, 'TINYBLOG_SITE_DESCRIPTION', None)

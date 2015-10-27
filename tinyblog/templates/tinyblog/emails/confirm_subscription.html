@@ -1,5 +1,6 @@
-<p>Thanks for subscribing to {{ site }} - we hope you'll enjoy reading
-the e-mails we send.</p>
+<p>Thanks for subscribing to {{ site }}
+{% if description %} - {{ description }}{% endif %}
+ - we hope you'll enjoy reading the e-mails we send.</p>
 
 <p>To make sure we only send e-mails people want to read, please
 confirm your subscription at <a href="{{ user.confirm_url }}">{{ user.confirm_url }}</a>.
