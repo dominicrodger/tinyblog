@@ -1,0 +1,13 @@
+<p>You have been invited to subscribe to {{ site }}{% if description %} - {{ description }}{% endif %}.</p>
+
+<p>If you would like to receive these emails, please confirm your
+subscription at <a href="{{ user.confirm_url }}">{{ user.confirm_url }}</a>. If you do not wish to
+subscribe to {{ site }}, no further action is necessary - this is the
+last you'll hear from us.</p>
+
+<p>If at any time you want to unsubscribe, there'll be a link you can
+follow at the bottom of every e-mail we send.</p>
+
+<p>Thanks,</p>
+
+<p><em>The {{ site }} team</em></p>

@@ -13,6 +13,9 @@ Release Notes
 =====
 
 * Drop support for Django 1.4, 1.5 and 1.6.
+* Add a new view for inviting people to subscribe to the blog - this
+  sends out a slightly differently worded message, to avoid
+  confusion.
 * Switch the last function-based view over to class-based views.
 
 0.4.5

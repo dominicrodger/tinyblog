@@ -19,6 +19,8 @@ urlpatterns = patterns(
      {}, 'tinyblog_json'),
     (r'^subscribe/$', 'tinyblog.views.subscription.subscribe',
      {}, 'tinyblog_subscribe'),
+    (r'^invite/$', 'tinyblog.views.subscription.invite',
+     {}, 'tinyblog_invite'),
     (r'^subscribe/thanks/$',
      'tinyblog.views.subscription.acknowledge_subscription',
      {}, 'tinyblog_subscribe_thanks'),

@@ -7,12 +7,18 @@ from tinyblog.forms import (
     UnsubscriptionConfirmationForm
 )
 from tinyblog.models import EmailSubscriber
-from tinyblog.utils.mail import send_subscription_confirmation
+from tinyblog.utils.mail import (
+    send_subscription_confirmation,
+    send_subscription_invitation
+)
 
 
 class SubscriptionView(FormView):
     form_class = EmailSubscriptionForm
     template_name = 'tinyblog/subscribe.html'
+
+    def notify_subscription(self, subscriber):
+        send_subscription_confirmation(subscriber)
 
     def form_valid(self, form):
         subscriber = form.save()
@@ -20,9 +26,16 @@ class SubscriptionView(FormView):
             subscriber.uuid_first
         )
 
-        send_subscription_confirmation(subscriber)
+        self.notify_subscription(subscriber)
+
         return HttpResponseRedirect(reverse('tinyblog_subscribe_thanks'))
 subscribe = SubscriptionView.as_view()
+
+
+class InviteSubscriptionView(SubscriptionView):
+    def notify_subscription(self, subscriber):
+        send_subscription_invitation(subscriber)
+invite = InviteSubscriptionView.as_view()
 
 
 class AcknowledgeSubscriptionView(DetailView):

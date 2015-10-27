@@ -38,3 +38,7 @@ def send_subscription_confirmation_impl(user, template_prefix):
 
 def send_subscription_confirmation(user):
     send_subscription_confirmation_impl(user, 'confirm_subscription')
+
+
+def send_subscription_invitation(user):
+    send_subscription_confirmation_impl(user, 'invite_subscription')
