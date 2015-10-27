@@ -1,7 +1,6 @@
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, FormView, TemplateView
 from tinyblog.forms import (
     EmailSubscriptionForm,
@@ -38,14 +37,23 @@ class TinyBlogAcknowledgeSubscriptionView(DetailView):
 acknowledge_subscription = TinyBlogAcknowledgeSubscriptionView.as_view()
 
 
-def subscribe_confirm(request, uuid):
-    subscriber = get_object_or_404(EmailSubscriber, uuid_second=uuid)
-    subscriber.confirmed = True
-    subscriber.save()
+class SubscriptionConfirmView(DetailView):
+    model = EmailSubscriber
+    template_name = 'tinyblog/subscribe_confirmed.html'
+    context_object_name = 'subscriber'
 
-    return render_to_response('tinyblog/subscribe_confirmed.html',
-                              {'subscriber': subscriber},
-                              context_instance=RequestContext(request))
+    def get_object(self, queryset=None):
+        # This is a bit icky - we're modifying the subscription
+        # information inside an HTTP GET request.
+        subscriber = get_object_or_404(
+            EmailSubscriber,
+            uuid_second=self.kwargs['uuid']
+        )
+        subscriber.confirmed = True
+        subscriber.save()
+
+        return subscriber
+subscribe_confirm = SubscriptionConfirmView.as_view()
 
 
 class UnsubscriptionView(FormView):

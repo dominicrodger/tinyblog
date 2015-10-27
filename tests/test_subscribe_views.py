@@ -62,8 +62,13 @@ class TestSubscribeViews(TestCase):
         self.assertFalse(subscriber.confirmed)
         response = self.client.get(subscriber.confirm_url())
         self.assertEqual(response.status_code, 200)
+
         subscriber = EmailSubscriber.objects.get(pk=subscriber.pk)
         self.assertTrue(subscriber.confirmed)
+        self.assertFalse(subscriber.unsubscribed)
+        self.assertEqual(unicode(subscriber), 'to@example.com')
+
+        self.assertEqual(response.context['subscriber'], subscriber)
 
     def test_unsubscribe_get_form(self):
         subscriber = EmailSubscriberFactory.create(confirmed=True)
