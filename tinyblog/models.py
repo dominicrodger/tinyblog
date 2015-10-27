@@ -21,12 +21,6 @@ class CurrentSubscribersManager(models.Manager):
                      self).get_queryset().filter(confirmed=True,
                                                  unsubscribed=False)
 
-    # Needed for Django 1.4 and 1.5
-    def get_query_set(self):
-        return super(CurrentSubscribersManager,
-                     self).get_query_set().filter(confirmed=True,
-                                                  unsubscribed=False)
-
 
 class EmailSubscriber(models.Model):
     email = models.EmailField()
@@ -59,11 +53,6 @@ class PublishedPostManager(models.Manager):
     def get_queryset(self):
         return super(PublishedPostManager,
                      self).get_queryset().filter(created__lte=datetime.now())
-
-    # Needed for Django 1.4 and 1.5
-    def get_query_set(self):
-        return super(PublishedPostManager,
-                     self).get_query_set().filter(created__lte=datetime.now())
 
 
 class Post(models.Model):

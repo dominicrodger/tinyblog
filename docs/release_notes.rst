@@ -9,6 +9,11 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.5.0
+=====
+
+* Drop support for Django 1.4, 1.5 and 1.6.
+
 0.4.5
 =====
 
