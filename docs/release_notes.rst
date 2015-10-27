@@ -13,6 +13,7 @@ Release Notes
 =====
 
 * Drop support for Django 1.4, 1.5 and 1.6.
+* Switch the last function-based view over to class-based views.
 
 0.4.5
 =====
