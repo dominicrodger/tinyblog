@@ -9,6 +9,12 @@ Release Notes
 * Improve pagination.
 * Add support for images.
 
+0.5.2
+=====
+
+* Fix a server error caused when you directly access the view for
+  thanking new subscribers.
+
 0.5.1
 =====
 
