@@ -209,3 +209,8 @@ class TestSubscribeViews(TestCase):
         self.assertFalse(subscriber.unsubscribed)
         self.assertEqual(EmailSubscriber.current_objects.count(),
                          1)
+
+    def test_direct_access_to_thanks_view(self):
+        url = reverse('tinyblog_subscribe_thanks')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)

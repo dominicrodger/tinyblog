@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, FormView, TemplateView
 from tinyblog.forms import (
@@ -51,9 +51,14 @@ class AcknowledgeSubscriptionView(DetailView):
     context_object_name = 'subscriber'
 
     def get_object(self, queryset=None):
+        uuid = self.request.session.get('tinyblog_thanks_uuid', None)
+
+        if uuid is None:
+            raise Http404
+
         return get_object_or_404(
             EmailSubscriber,
-            uuid_first=self.request.session['tinyblog_thanks_uuid']
+            uuid_first=uuid
         )
 acknowledge_subscription = AcknowledgeSubscriptionView.as_view()
 
